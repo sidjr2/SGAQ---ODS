@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="static/loginCSS.css" />
+</head>
+<body>
+<main>
+    <section>
+        <div class="overlay-container">
+            <a href="/"> <em> SGAQ </em>- SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA </a>
+            <h1>Seja Bem-vindo!</h1>
+            <p>Faça seu login e agende no calendário aqui e agora!</p>
+        </div>
+        <!-- <form action="/agendamento/agendamento.html" -->
+        <form action="/user" method="post">
+            <h2>LOGIN</h2>
+            <p class="error-message"><%= message %></p>
+            <div>
+                <label for="email">Email:</label>
+                <input
+                        type="email"
+                        autocomplete="email"
+                        required
+                        name="email"
+                        id="email"
+                />
+            </div>
+
+            <div>
+                <label for="password">Senha:</label>
+                <input type="password" required name="password" id="password" />
+            </div>
+
+            <button type="submit" id="main-btn">Continuar</button>
+            <p>
+                Não tem uma conta?
+                <a href="/cadastrousuario">Cadastre-se aqui!</a>
+            </p>
+        </form>
+    </section>
+</main>
+<!-- <script src="/users.json"></script> -->
+<script src="loginUser.js"></script>
+</body>
+</html>

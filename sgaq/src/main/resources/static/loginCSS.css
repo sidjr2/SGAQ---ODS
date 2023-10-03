@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Poppins:wght@900&display=swap');
+
+:root {
+    font-family: Poppins, sans-serif;
+}
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+
+section {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100vh;
+}
+
+p{
+    color: white;
+    font-size: 1.2em;
+}
+.overlay-container {
+    flex: 1;
+    display: inherit;
+    gap: 3em;
+    align-items: center;
+    flex-flow: column wrap;
+    background-image: linear-gradient(to left, rgb(10, 4, 88), rgb(0, 0, 0));
+}
+
+.overlay-container > a {
+    font-size: 2em;
+    color: white;
+    letter-spacing: .1em;
+    margin-top: .8em;
+}
+.overlay-container > a > em {
+    padding: 0em 0.6em;
+    border: none;
+    border-radius: 0.2em;
+    background-color: rgb(233, 248, 23);
+}
+
+.overlay-container h1 {
+    font-size: 3em;
+    color: white;
+}
+
+.overlay-container p {
+    font-size: 3em;
+    text-align: center;
+}
+
+.overlay-container img {
+    filter: brightness(5);
+    transform: rotate(90deg);
+    height: 75px;
+}
+
+form {
+    flex: 1;
+    gap: 1em;
+    width: 80vh;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5em;
+    color: white;
+    padding-bottom: 2em;
+    /* background-color:rgb(66, 16, 95); */
+    background-image: linear-gradient(to right, rgb(129, 129, 61), rgb(255, 244, 73));
+}
+
+form > h2 {
+    font-size: 2em;
+    margin-top: 1em;
+}
+
+form div {
+    width: 70%;
+}
+
+input {
+    width: 100%;
+    padding: 0.8em;
+    border-radius: 0.5em;
+    outline-style: none;
+}
+
+input:focus {
+    outline: 2px solid lightseagreen;
+}
+
+button {
+    /* background-color: rgb(245, 63, 17); */
+    background-color: rgb(217, 241, 63);
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    width: 70%;
+    height: 3.2em;
+    border: none;
+    font-size: 1.3em;
+    border-radius: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .4s;
+}
+
+button a{
+    color: white;
+}
+
+
+
+button:hover {
+    outline: .3em solid rgb(165, 225, 0);
+}
+i {
+    margin-right: 1em;
+}
+.twitter-btn {
+    font-weight: 700;
+    gap: 0;
+    justify-content: center;
+}
+
+
+.facebook-btn {
+    padding-left: 1em;
+}
+
+
+p > a {
+    color: white;
+    text-decoration:underline;
+}
+
+/* Mensagem de erro exibida quando há erro de login */
+.error-message{
+    color: red;
+    font-size: 1.5em;
+}
+
+@media screen and (min-width: 280px) and (max-width: 720px) {
+    section {
+        display: block;
+    }
+
+    .overlay-container {
+        display: flex;
+        background-image: linear-gradient(to top, rgb(217, 241, 63), rgb(255, 244, 1));
+        /* width: 100%; */
+    }
+
+    form {
+        display: flex;
+        /* height: 100vh; */
+        flex-flow: column wrap;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        width: 100%;
+        background-image: linear-gradient(to bottom, rgb(255, 244, 73), rgb(129, 129, 61));
+    }
+
+    p {
+        margin-bottom: 2em;
+    }
+
+    body {
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+
+    .overlay-container h1 {
+        font-size: 2.2em;
+    }
+
+    .overlay-container p {
+        font-size: 2.2em;
+    }
+}

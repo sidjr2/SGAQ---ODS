@@ -77,9 +77,6 @@ public class QuadraController {
         quadraRepository.delete(quadra0.get());
         return ResponseEntity.status(HttpStatus.OK).body("QUADRA DELETADA COM SUCESSO");
     }
-    @GetMapping("/cadastro-quadra")
-    public String exibirCadastroQuadra() {
-        return "quadra"; // Isso corresponde ao nome do arquivo HTML (quadra.html)
-    }
+
 
 }

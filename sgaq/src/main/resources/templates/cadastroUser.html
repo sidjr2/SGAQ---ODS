@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="static/cadastroUserCSS.css" />
+</head>
+<body>
+<div class="logo">
+    <a href="/"> <em> SGAQ </em>- SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA </a>
+</div>
+<!-- =============================================================== -->
+<!-- FORM -->
+<form action="/login" method="post">
+    <h2>Cadastro</h2>
+
+
+    <!-- Fields -->
+    <div class="fields">
+        <label for="firstName">Nome:</label>
+        <input type="text" name="firstName" id="name" required />
+    </div>
+
+    <div class="fields">
+        <label for="lastName">Sobrenome:</label>
+        <input type="text" name="lastName" id="lastName" required />
+    </div>
+
+    <div class="fields">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required />
+    </div>
+
+    <div class="fields">
+        <label for="password">Senha</label>
+        <input type="password" name="password" id="password" required />
+    </div>
+
+    <!-- Terms -->
+
+    <div class="condition">
+        <label>
+            <p>Quero receber ofertas, atualizações especiais da nossa empresa</p>
+            <input type="checkbox" name="option1" id="" />
+            <span></span>
+        </label>
+    </div>
+
+    <div class="condition">
+        <label>
+            <p>Eu li e concordo com os <a href="#"> termos de serviço</a></p>
+            <input type="checkbox" name="option2" id="" required />
+            <span></span>
+        </label>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit">Save</button>
+</form>
+<script src="script/cadastroUser.js"></script>
+</body>
+</html>
