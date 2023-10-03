@@ -1,288 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Usuários</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        /* Estilos para o pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            z-index: 1000;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SGAQ - SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA</title>
+    <link rel="stylesheet" href="static/indexCSS.css">
+    <script src="https://kit.fontawesome.com/a3cfbf898f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Tabela de Usuários <button onclick="openPopup('user')">+</button></h1>
-<table id="TP_USER">
-    <tr>
-        <th>ID</th>
-        <th>Nome de Usuário</th>
-        <th>Nome</th>
-        <th>Departamento</th>
-        <th>Matrícula</th>
-        <th>Tipo</th>
-        <th>Telefone</th>
-        <th>Cidade</th>
-        <th>Prioridade</th>
-        <th>Ações</th>
-    </tr>
-    <!-- As linhas da tabela serão preenchidas aqui -->
-</table>
+<header>
+    <nav>
+        <a href="/"> <em> SGAQ </em>- SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA </a>
+        <ul>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Ajuda</a></li>
+            <li>
+                <a href="/login">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"/>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-<h1>Tabela de Quadras <button onclick="openPopup('quadra')">+</button></h1>
-<table id="TP_QUADRA">
-    <tr>
-        <th>id_Quadra</th>
-        <th>Nome</th>
-        <th>Local</th>
-        <th>Descricao</th>
-        <th>Capacidade</th>
-        <th>Reservado</th>
-        <th>Ações</th>
-    </tr>
-    <!-- As linhas da tabela serão preenchidas aqui -->
-</table>
+<main>
+    <section>
+        <img src="static/IMG/quadra.jpg" alt="" srcset="">
 
-<!-- Pop-ups para criar novo usuário e quadra -->
-<div id="userPopup" class="popup">
-    <h2>Novo Usuário</h2>
-    <form>
-        <label for="username">Login:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="userType">Tipo de Usuário:</label>
-        <select id="userType" name="userType" onchange="showHideUserFields()">
-            <option value="Professor">Professor (prioridade 1)</option>
-            <option value="Atlética">Atlética (prioridade 2)</option>
-            <option value="Servidor">Servidor (prioridade 3)</option>
-            <option value="Aluno">Aluno (prioridade 4)</option>
-            <option value="Comunidade">Comunidade (prioridade 5)</option>
-        </select>
-
-        <div id="departmentField">
-            <label for="department">Departamento:</label>
-            <select id="userDepartment" name="userDepartment">
-                <!-- Aqui você pode adicionar as opções para os departamentos da UFSJ -->
-                <option value="Departamento1">Departamento Educação Fisica</option>
-                <option value="Departamento2">Departamento Computação</option>
-                <option value="Departamento3">Departamento Geografia</option>
-                <option value="Departamento4">Departamento Medicina</option>
-            </select>
+        <div class="texto">
+            <h2>Agende no calendário</h2>
+            <p>Faça seu login e comece</p>
+            <button><a href="/login">Começar</a></button>
         </div>
 
-        <div id="registrationField">
-            <label for="registration">Matrícula:</label>
-            <input type="text" id="userRegistration" name="userRegistration">
-        </div>
+    </section>
+</main>
 
-        <label for="phone">Telefone:</label>
-        <input type="tel" id="phone" name="phone">
-
-        <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city">
-
-        <label for="priority">Prioridade:</label>
-        <input type="number" id="priority" name="priority">
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    <button onclick="closePopup('user')">Fechar</button>
-</div>
-
-<div id="quadraPopup" class="popup">
-    <h2>Nova Quadra</h2>
-    <form>
-        <label for="quadraName">Nome da Quadra:</label>
-        <input type="text" id="quadraName" name="quadraName" required>
-
-        <label for="location">Local:</label>
-        <input type="text" id="location" name="location">
-
-        <label for="description">Descrição:</label>
-        <textarea id="description" name="description"></textarea>
-
-        <label for="capacity">Capacidade:</label>
-        <input type="number" id="capacity" name="capacity">
-
-        <label for="reserved">Reservado:</label>
-        <input type="checkbox" id="reserved" name="reserved">
-
-        <!-- Adicione mais campos de formulário, se necessário -->
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    <button onclick="closePopup('quadra')">Fechar</button>
-</div>
-
-<!-- Overlay para escurecer o fundo quando o pop-up estiver aberto -->
-<div id="overlay" class="overlay"></div>
-
-<script>
-    function showHideUserFields() {
-        var userType = document.getElementById('userType').value;
-        var departmentField = document.getElementById('departmentField');
-        var registrationField = document.getElementById('registrationField');
-        var priorityField = document.getElementById('priority');
-
-        if (userType === 'Professor') {
-            priorityField.value = 5;
-        } else if (userType === 'Atlética') {
-            priorityField.value = 4;
-        } else if (userType === 'Servidor') {
-            priorityField.value = 3;
-        } else if (userType === 'Aluno') {
-            priorityField.value = 2;
-        } else if (userType === 'Comunidade') {
-            priorityField.value = 1;
-        }
-
-        if (userType === 'Comunidade') {
-            departmentField.style.display = 'none';
-            registrationField.style.display = 'none';
-        } else {
-            departmentField.style.display = 'block';
-            registrationField.style.display = 'block';
-        }
-    }
-
-
-    function openPopup(type) {
-        document.getElementById(type + 'Popup').style.display = 'block';
-        document.getElementById('overlay').style.display = 'block';
-    }
-
-    function closePopup(type) {
-        document.getElementById(type + 'Popup').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
-    }
-
-    function deleteUser(id, name) {
-        if (confirm('Você realmente deseja apagar o usuário ' + name + ' com ID ' + id + '?')) {
-            fetch('http://localhost:8080/user/delete/' + id, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao deletar usuário');
-                    }
-                    return response.text();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-    }
-
-    function deleteQuadra(id, name) {
-        if (confirm('Você realmente deseja apagar a quadra ' + name + ' com ID ' + id + '?')) {
-            fetch('http://localhost:8080/quadra/delete/' + id, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao deletar quadra');
-                    }
-                    return response.text();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-            }
-        }
-
-        function openPopup(type) {
-            document.getElementById(type + 'Popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function closePopup(type) {
-            document.getElementById(type + 'Popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-    fetch('http://localhost:8080/user')
-        .then(response => response.json())
-        .then(data => {
-            var table = document.getElementById('TP_USER');
-
-            for (var i = 0; i < data.length; i++) {
-                var row = table.insertRow(-1);
-                row.insertCell(0).innerHTML = data[i].id_User;
-                row.insertCell(1).innerHTML = data[i].user_name;
-                row.insertCell(2).innerHTML = data[i].nome;
-                row.insertCell(3).innerHTML = data[i].departamento;
-                row.insertCell(4).innerHTML = data[i].matricula;
-                row.insertCell(5).innerHTML = data[i].tipo;
-                row.insertCell(6).innerHTML = data[i].telefone;
-                row.insertCell(7).innerHTML = data[i].cidade;
-                row.insertCell(8).innerHTML = data[i].prioridade;
-                row.insertCell(9).innerHTML = '<a href="#" onclick="deleteUser(\'' + data[i].id_User + '\', \'' + data[i].nome + '\')"><i class="material-icons">delete_outline</i></a>' +
-                    '<a href="/user/update/' + data[i].id_User + '"><i class="material-icons">edit</i></a>';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-
-    fetch('http://localhost:8080/quadra')
-        .then(response => response.json())
-        .then(data => {
-            var table = document.getElementById('TP_QUADRA');
-
-            for (var i = 0; i < data.length; i++) {
-                var row = table.insertRow(-1);
-                row.insertCell(0).innerHTML = data[i].id_Quadra;
-                row.insertCell(1).innerHTML = data[i].quadra_name;
-                row.insertCell(2).innerHTML = data[i].local;
-                row.insertCell(3).innerHTML = data[i].descricao;
-                row.insertCell(4).innerHTML = data[i].capacidade;
-                row.insertCell(5).innerHTML = data[i].reservado ? 'Sim' : 'Não';
-                row.insertCell(6).innerHTML = '<a href="#" onclick="deleteQuadra(\'' + data[i].id_Quadra + '\', \'' + data[i].quadra_name + '\')"><i class="material-icons">delete_outline</i></a>' +
-                    '<a href="/quadra/update/' + data[i].id_Quadra + '"><i class="material-icons">edit</i></a>';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-
-        function showHideUserFields() {
-            var userType = document.getElementById('userType').value;
-            var departmentField = document.getElementById('departmentField');
-            var registrationField = document.getElementById('registrationField');
-
-            if (userType === 'Comunidade') {
-                departmentField.style.display = 'none';
-                registrationField.style.display = 'none';
-            } else {
-                departmentField.style.display = 'block';
-                registrationField.style.display = 'block';
-            }
-        }
-</script>
+<footer>Dcomp - SGAQ - SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA</footer>
+<script src="static/script/main.js"></script>
 </body>
 </html>
-
