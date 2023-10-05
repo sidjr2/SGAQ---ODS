@@ -1,64 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="static/cadastroUserCSS.css" />
+    <title>Usuários</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="sigaa_base.css ">
 </head>
+
 <body>
-<div class="logo">
-    <a href="/"> <em> SGAQ </em>- SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA </a>
-</div>
-<!-- =============================================================== -->
-<!-- FORM -->
-<form action="/login" method="post">
-    <h2>Cadastro</h2>
+
+    <div id="container">
+        <div id="cabecalho">
+            <div id="info-sistema">
+                <h1><span>UFSJ - SGAQ -</span></h1>
+                <h3>Sistema de Gerenciamento de Alocação de Quadra</h3>
+                <div class="dir">
+                    
+                </div>
+            </div>
+         
+    
+        <div id="painel-usuario"  style="height: 20px;"  >
+        
+        <div id="menu-principal"></div>
+        </div>
+        </div>
+        
+    
+        <div id="conteudo">
+
+    <style type="text/css">
+        .painel {  background-color: #EFF3FA; padding: 5px; width: 16%; text-align: center; }
+        .sistemaAtual { background-color: #FFFFE4; } 
+        </style>
+        
+        
+        
+            <div align="center" style="margin: 0 auto; background: #EFF3FA; padding: 10px;">
+                <p style="font-weight: bold; color: #F00;">ATENÇÃO!</p>
+                <p style="width: 75%;">	O sistema diferencia letras maiúsculas de minúsculas APENAS na senha,
+                portanto ela deve ser digitada da mesma maneira que no cadastro.</p>
+            </div>
 
 
-    <!-- Fields -->
-    <div class="fields">
-        <label for="firstName">Nome:</label>
-        <input type="text" name="firstName" id="name" required />
+    <div align="center" style="width: 100%; margin: 0 auto; padding: 10px 0;">
+        <table width="100%" align="center" style="border-collapse: separate; border-spacing: 3px">
+            <tr>
+
+                <td class="painel sistemaAtual">
+                    <a href="/">
+                        SGAQ</a> <br>
+                </td>
+
+                <td class="painel ">
+                    <a href="/professor">
+                        SGAQ</a> <br>
+                    (Professor)
+
+                </td>
+
+                <td class="painel ">
+                    <a href="/atletica">
+                        SGAQ</a><br>
+                    (Atlética)
+                </td>
+
+                <td class="painel ">
+                    <a href="/admin">
+                        SGAQ</a><br>
+                    (Administrativo)
+                </td>
+
+
+                <td class="painel ">
+                    <a href="/comunidade">
+                        SGAQ</a><br>
+                    (Comunidade)
+                </td>
+     
+
+            </tr>
+        </table>
     </div>
 
-    <div class="fields">
-        <label for="lastName">Sobrenome:</label>
-        <input type="text" name="lastName" id="lastName" required />
+
+    <!-- Pop-ups para criar novo usuário e quadra -->
+    <div id="userPopup" class="popup">
+        <h2>Novo Usuário</h2>
+        <form>
+            <label for="username">Login:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="userType">Tipo de Usuário:</label>
+            <select id="userType" name="userType" onchange="showHideUserFields()">
+                <option value="Professor">Professor (prioridade 1)</option>
+                <option value="Atlética">Atlética (prioridade 2)</option>
+                <option value="Servidor">Servidor (prioridade 3)</option>
+                <option value="Aluno">Aluno (prioridade 4)</option>
+                <option value="Comunidade">Comunidade (prioridade 5)</option>
+            </select>
+
+            <div id="departmentField">
+                <label for="department">Departamento:</label>
+                <select id="userDepartment" name="userDepartment">
+                    <!-- Aqui você pode adicionar as opções para os departamentos da UFSJ -->
+                    <option value="Departamento1">Departamento Educação Fisica</option>
+                    <option value="Departamento2">Departamento Computação</option>
+                    <option value="Departamento3">Departamento Geografia</option>
+                    <option value="Departamento4">Departamento Medicina</option>
+                </select>
+            </div>
+
+            <div id="registrationField">
+                <label for="registration">Matrícula:</label>
+                <input type="text" id="userRegistration" name="userRegistration">
+            </div>
+
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" name="phone">
+
+            <label for="city">Cidade:</label>
+            <input type="text" id="city" name="city">
+
+            <label for="priority">Prioridade:</label>
+            <input type="number" id="priority" name="priority">
+
+            <button type="submit">Salvar</button>
+        </form>
+
+        <button onclick="closePopup('user')">Fechar</button>
     </div>
 
-    <div class="fields">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required />
-    </div>
 
-    <div class="fields">
-        <label for="password">Senha</label>
-        <input type="password" name="password" id="password" required />
-    </div>
+    <script>
+        function showHideUserFields() {
+            var userType = document.getElementById('userType').value;
+            var departmentField = document.getElementById('departmentField');
+            var registrationField = document.getElementById('registrationField');
+            var priorityField = document.getElementById('priority');
 
-    <!-- Terms -->
+            if (userType === 'Professor') {
+                priorityField.value = 5;
+            } else if (userType === 'Atlética') {
+                priorityField.value = 4;
+            } else if (userType === 'Servidor') {
+                priorityField.value = 3;
+            } else if (userType === 'Aluno') {
+                priorityField.value = 2;
+            } else if (userType === 'Comunidade') {
+                priorityField.value = 1;
+            }
 
-    <div class="condition">
-        <label>
-            <p>Quero receber ofertas, atualizações especiais da nossa empresa</p>
-            <input type="checkbox" name="option1" id="" />
-            <span></span>
-        </label>
-    </div>
+            if (userType === 'Comunidade') {
+                departmentField.style.display = 'none';
+                registrationField.style.display = 'none';
+            } else {
+                departmentField.style.display = 'block';
+                registrationField.style.display = 'block';
+            }
+        }
 
-    <div class="condition">
-        <label>
-            <p>Eu li e concordo com os <a href="#"> termos de serviço</a></p>
-            <input type="checkbox" name="option2" id="" required />
-            <span></span>
-        </label>
-    </div>
 
-    <!-- Submit button -->
-    <button type="submit">Save</button>
-</form>
-<script src="script/cadastroUser.js"></script>
+        function openPopup(type) {
+            document.getElementById(type + 'Popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup(type) {
+            document.getElementById(type + 'Popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function deleteUser(id, name) {
+            if (confirm('Você realmente deseja apagar o usuário ' + name + ' com ID ' + id + '?')) {
+                fetch('http://localhost:8080/user/delete/' + id, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao deletar usuário');
+                        }
+                        return response.text();
+                    })
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function deleteQuadra(id, name) {
+            if (confirm('Você realmente deseja apagar a quadra ' + name + ' com ID ' + id + '?')) {
+                fetch('http://localhost:8080/quadra/delete/' + id, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao deletar quadra');
+                        }
+                        return response.text();
+                    })
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function openPopup(type) {
+            document.getElementById(type + 'Popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup(type) {
+            document.getElementById(type + 'Popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        fetch('http://localhost:8080/user')
+            .then(response => response.json())
+            .then(data => {
+                var table = document.getElementById('TP_USER');
+
+                for (var i = 0; i < data.length; i++) {
+                    var row = table.insertRow(-1);
+                    row.insertCell(0).innerHTML = data[i].id_User;
+                    row.insertCell(1).innerHTML = data[i].user_name;
+                    row.insertCell(2).innerHTML = data[i].nome;
+                    row.insertCell(3).innerHTML = data[i].departamento;
+                    row.insertCell(4).innerHTML = data[i].matricula;
+                    row.insertCell(5).innerHTML = data[i].tipo;
+                    row.insertCell(6).innerHTML = data[i].telefone;
+                    row.insertCell(7).innerHTML = data[i].cidade;
+                    row.insertCell(8).innerHTML = data[i].prioridade;
+                    row.insertCell(9).innerHTML = '<a href="#" onclick="deleteUser(\'' + data[i].id_User + '\', \'' + data[i].nome + '\')"><i class="material-icons">delete_outline</i></a>' +
+                        '<a href="/user/update/' + data[i].id_User + '"><i class="material-icons">edit</i></a>';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+        fetch('http://localhost:8080/quadra')
+            .then(response => response.json())
+            .then(data => {
+                var table = document.getElementById('TP_QUADRA');
+
+                for (var i = 0; i < data.length; i++) {
+                    var row = table.insertRow(-1);
+                    row.insertCell(0).innerHTML = data[i].id_Quadra;
+                    row.insertCell(1).innerHTML = data[i].quadra_name;
+                    row.insertCell(2).innerHTML = data[i].local;
+                    row.insertCell(3).innerHTML = data[i].descricao;
+                    row.insertCell(4).innerHTML = data[i].capacidade;
+                    row.insertCell(5).innerHTML = data[i].reservado ? 'Sim' : 'Não';
+                    row.insertCell(6).innerHTML = '<a href="#" onclick="deleteQuadra(\'' + data[i].id_Quadra + '\', \'' + data[i].quadra_name + '\')"><i class="material-icons">delete_outline</i></a>' +
+                        '<a href="/quadra/update/' + data[i].id_Quadra + '"><i class="material-icons">edit</i></a>';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+        function showHideUserFields() {
+            var userType = document.getElementById('userType').value;
+            var departmentField = document.getElementById('departmentField');
+            var registrationField = document.getElementById('registrationField');
+
+            if (userType === 'Comunidade') {
+                departmentField.style.display = 'none';
+                registrationField.style.display = 'none';
+            } else {
+                departmentField.style.display = 'block';
+                registrationField.style.display = 'block';
+            }
+        }
+    </script>
 </body>
+
 </html>
