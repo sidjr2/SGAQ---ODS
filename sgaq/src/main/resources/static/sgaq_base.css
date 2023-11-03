@@ -1,0 +1,264 @@
+  html.background,
+  body.background {
+    background:url(../static/IMG/bg_pagina_1024.jpg) repeat-y center;
+  }
+  body {
+    margin:0;
+    font-size:70%;
+    font-family:Verdana, sans-serif;
+    text-decoration:none;
+    text-align:center;
+  }
+  h1,h3,p {
+    margin:0;
+    padding:0;
+  }
+  h1 {
+    font-size:1.5em;
+  }
+  h3 {
+    font-size:1.2em;
+  }
+  hr {
+    color:#404E82;
+    background-color:#404E82;
+    height:1px;
+    border:0;
+  }
+  a:link {
+    color:#003395;
+    font-weight:bold;
+    font-size:inherit;
+    text-decoration:none;
+  }
+  a:visited {
+    color:#003390;
+    text-decoration:none;
+    font-weight:bold;
+  }
+  a:active {
+    color:#444444;
+    text-decoration:none;
+    font-weight:bold;
+  }
+  a:hover {
+    color:#333;
+    font-weight:bold;
+    text-decoration:none;
+  }
+  label {
+    cursor:pointer;
+  }
+  img {
+    border:0;
+  }
+  table {
+    border-collapse:collapse;
+  }
+  table tbody tr th,
+  table th {
+    text-align:right;
+    font-weight:normal;
+  }
+  table thead,
+  table tr.linhaCinza {
+    background-color:#DEDFE3;
+    font-weight:bold;
+  }
+  table thead tr th {
+    text-align:center;
+    font-weight:bold;
+  }
+  table thead th {
+    font-weight:bold
+  }
+  textarea {
+    padding:2px;
+  }
+  select {
+    text-align:justify;
+    font-weight:normal;
+    font-size:0.8em;
+    font-family:Verdana;
+  }
+  input,
+  textarea,
+  select {
+    font-family:Verdana, sans-serif;
+    border:1px solid #AAA;
+    font-size:1em;
+  }
+  input[type="image"],
+  input[type="checkbox"] ,
+  input[type="radio"] {
+    border:0;
+  }
+  input[type="submit"],
+  input[type="button"] {
+    margin:0 2px;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  textarea:focus {
+    border:1px solid #D99C44;
+    background-color:#FDFAF6;
+  }
+  .valor {
+    text-align:right;
+    font-weight:bold;
+  }
+  .erro {
+    font-weight:bold;
+    color:red;
+  }
+  .indisponivel {
+    color:#999;
+    font-weight:lighter;
+  }
+  input.noborder,
+  .noborder input {
+    border:0;
+  }
+  .leitura {
+    background:transparent;
+    border:0pt none;
+  }
+  .popUp {
+    padding:5px;
+    border:1px solid #FFC30E;
+    width:200px;
+    color:#9C7600;
+    background-color:#FFFBB8;
+    text-align:left;
+    position:absolute;
+    left:0;
+    top:-5px;
+    visibility:hidden;
+    overflow:visible;
+    z-index:100;
+  }
+  span.tooltip {
+    cursor:help;
+  }
+  .fontePequena {
+    font-size:0.9em;
+  }
+  .clear {
+    clear:both;
+    height:1px;
+    margin:0;
+    padding:0;
+  }
+  #container {
+    width:984px;
+    margin:0 auto;
+    background:#FFF;
+    text-align:left;
+  }
+  #container-popup {
+    margin:0 auto;
+    background:#FFF;
+    text-align:left;
+  }
+  #container-popup table {
+    font-size:1em;
+  }
+  #cabecalho {
+    margin:0 auto;
+    position:relative;
+    width:auto;
+    background:#FFF;
+  }
+  .cabecalho {
+    border-color:black;
+    border-style:solid;
+    border-width:1;
+  }
+  #info-sistema {
+    color:#FFF;
+    background:#404E82 url(../static/IMG/barra_fundo.png) repeat-x top;
+    padding:1px 4px 0px 4px;
+    position:relative;
+    border-bottom:3px solid #D99C44;
+    text-align:left;
+    margin:0 auto;
+    display:block;
+  }
+  #info-sistema h1 {
+    font-size:1.2em;
+    font-weight:bold;
+    display:inline;
+  }
+  #info-sistema h1 span {
+    font-size:1.1em;
+    margin-right:10px;
+    font-family:Arial;
+    letter-spacing:0.1em;
+    position:relative;
+  }
+  #info-sistema span.sistemas {
+    position:absolute;
+    right:50px;
+    top:0px;
+    padding:0px 0px 0px;
+    font-size:8pt;
+  }
+  #info-sistema span.sistemas select {
+    position:relative;
+    margin:0px 0px;
+    padding:1px 0px;
+  }
+  #info-sistema span.data-atual {
+    position:relative;
+    right:90px;
+    top:8px;
+  }
+  #tempoSessao {
+    position:absolute;
+    text-align:right;
+    padding-right:60px;
+    margin:0;
+    height:16px;
+    top:3px;
+    right:0;
+  }
+  #info-sistema h3 {
+    position:relative;
+    font-size:1.1em;
+    font-weight:normal;
+    display:inline;
+  }
+  #painel-usuario {
+    background:#C4D2EB;
+    color:#222;
+    position:relative;
+    min-height:48px;
+    height:auto !important;
+  }
+  #conteudo {
+  }
+  #rodape {
+    position:relative;
+    bottom:0px;
+    border-top:3px solid #D99C44;
+    background:#404E82;
+    font-size:0.9em;
+  }
+  #rodape p {
+    clear:both;
+    color:#FFF;
+    padding:4px 3px;
+    text-align:center;
+  }
+  .logon h3 {
+    color:#336;
+    background:#C8D5EC url(../static/IMG/div_left.gif) right no-repeat;
+    border-left:1px solid #C8D5EC;
+    width:50%;
+    text-align:center;
+  }
+  .logon table {
+    background:#FAFAFA;
+    border:1px solid #C8D5EC;
+    border-width:3px 1px;
+  }

@@ -1,8 +1,7 @@
 package br.edu.ufsj.dcefs.sgaq.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -17,7 +16,7 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_User;
     @Column(nullable = false,unique = true)
-    @NotBlank(message = "o user_name deve ser informado")
+    @NotEmpty(message = "o user_name deve ser informado")
     private String user_name;
     private String senha;
     @Column(nullable = false,unique = true)

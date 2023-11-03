@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SgaqApplication",
+            "request": "launch",
+            "mainClass": "br.edu.ufsj.dcefs.sgaq.SgaqApplication",
+            "projectName": "sgaq"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-SgaqApplication<sgaq>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
