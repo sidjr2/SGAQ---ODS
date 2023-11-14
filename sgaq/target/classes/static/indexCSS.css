@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Poppins:wght@900&display=swap');
+
+:root {
+    font-family: Poppins, sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    background-color: #8c882c;
+}
+
+/* ===========  Header  ============= */
+
+header{
+    background-image: linear-gradient(to left, rgb(197, 176, 93), rgb(129, 129, 61));
+    padding: 1.5em;
+}
+
+
+/* ============ NAV ===================*/
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav > a {
+    font-size: 1.3em;
+    color: white;
+    letter-spacing: .1em;
+}
+nav> a > em {
+    padding: 0em 0.6em;
+    border: none;
+    border-radius: 0.2em;
+    background-color: rgb(165, 225, 0);
+    font-style: normal;
+}
+
+ul{
+    display: flex;
+    align-items: center;
+}
+
+/* ============ LI ========= */
+
+li{
+    display: inline;
+    margin-right: 2em;
+}
+
+li a{
+    font-size: 1.1em;
+    color: white;
+}
+
+li:hover a{
+    transition: .4s;
+    color: rgb(119, 115, 29);
+}
+
+
+li:hover::after{
+    content:"";
+    width:3.5em;
+    height: .1em;
+    display: block;
+    background-color: aliceblue;
+    position: absolute;
+}
+
+li:last-child{
+    padding: .3em;
+    border: none;
+    border-radius: 2em;
+}
+
+li:hover:last-child{
+    transition: .4s;
+    background-color: rgb(197, 197, 123);
+}
+
+li:hover:last-child::after{
+    content: none;
+}
+
+
+/* =============== SVG ==================*/
+svg{
+    width: 18px;
+    height: auto;
+    fill: aliceblue;
+}
+
+/*================ SECTION ============== */
+
+section{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+section img{
+    height: 80vh;
+    width: 100%;
+}
+
+
+section .texto{
+    text-align: center;
+    color: white;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    margin-top: 2em;
+    font-size: 1.8em;
+
+}
+
+section button{
+    /* background-color: rgb(15, 15, 236); */
+    cursor: pointer;
+    background-color: rgb(70, 88, 4);
+    font-size: 1.2em;
+    border: none;
+    padding: 5px;
+    border-radius: .2em;
+    font-family: Poppins, sans-serif;
+}
+
+section button a{
+    color: rgb(237, 237, 248);
+}
+
+section button:hover a{
+    color: rgb(126, 126, 103);
+    transition: .4s;
+}
+
+footer{
+    background-color: #d0d0d0;
+    color: white;
+    text-align: center;
+}
