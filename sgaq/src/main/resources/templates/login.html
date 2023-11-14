@@ -40,15 +40,15 @@
             <div class="separator light"></div>
 
             <div>
-              <label for="name">E-mail</label>
-              <input type="email" name="user.email" value=""/>
+              <label for="email">E-mail</label>
+              <input type="email" name="user.email"/>
             </div>
 
             <br>
 
             <div>
-                <label for="name">Senha</label>
-                <input type="password" name="user.password" value=""/>
+                <label for="senha">Senha</label>
+                <input type="password" name="user.password"/>
             </div>
 
             <br>
@@ -58,13 +58,20 @@
             <label>Não tem uma conta no SGAG? <a href="/cadastrousuario">Cadastre-se.</a></label>
             <br><br>
 
-            <div class="button-group">
+            <div id=loginButton class="button-group">
                 <button 
                   class="button green" 
                   form="form-login" 
                   type="submit" 
                   title="Login">Entrar</button>
             </div>
+
+            <script>
+              document.getElementById("loginButton").addEventListener("click", function () {
+                window.location.href ="/index";
+              });
+            </script>
+            
           </fieldset>
 
         <script type="text/javascript" language="JavaScript">

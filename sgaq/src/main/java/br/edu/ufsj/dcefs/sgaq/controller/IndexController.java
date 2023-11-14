@@ -41,4 +41,18 @@ public class IndexController {
 
         return mv;
     }
+    @GetMapping("/job")
+    public ModelAndView getListJob(){
+
+        ModelAndView mv = new ModelAndView("job");
+
+        return mv;
+    }
+    @GetMapping("/jobedit")
+    public ModelAndView getListJobEdit(){
+
+        ModelAndView mv = new ModelAndView("job-edit");
+
+        return mv;
+    }
 }
