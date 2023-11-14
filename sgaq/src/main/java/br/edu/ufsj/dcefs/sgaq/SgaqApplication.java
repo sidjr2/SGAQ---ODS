@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SgaqApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SgaqApplication.class, args);
+        SpringApplication.run(SgaqApplication.class, args );
     }
 
 
