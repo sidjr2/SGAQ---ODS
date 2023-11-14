@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/png" />
+    <title>SGAQ - Cadastro</title>
+
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <link rel="stylesheet" href="../static/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="../static/styles/partials/cards.css" />
+    <link rel="stylesheet" href="../static/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="../static/styles/partials/forms.css" />
+    <link rel="stylesheet" href="../static/styles/partials/animations.css" />
+    <link rel="stylesheet" href="../static/styles/pages/cadastroUser.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/script/cadastroUser.js"></script>
+
+  </head>
+
+  <body id="page-cadastro">
+    <header class="page-header inner">
+        <div class="container animate-up">
+            <a href="/" class="back">
+              <img id="logo" src="../static/images/logo2.svg" alt="Logo"/>
+            </a>
+            <h1>Cadastro</h1>
+        </div>
+    </header>
+    <div class="login flex animate-up delay-2">
+        <main>
+            <form id="form-cadastro" method="post" action="/cadastroUser">
+                <fieldset>
+                    <legend class="fixed-title">Realizar Cadastro
+                    <div class="separator light"></div>
+                    </legend>
+
+                    <div class="form-cadastrouser">
+                    <form class="form">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <input type="text" id=name name="user.name" maxlength="80"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipo">Tipo de Cadastro</label>
+                                <select type="select" id="tipo-cadastro" name="user.type" onchange="showHideUserFields()">
+                                    <option value="" disabled selected>Selecione o tipo de cadastro</option>
+                                    <option value="1">PROFESSOR</option>
+                                    <option value="2">ATLÉTICA</option>
+                                    <option value="3">ALUNO</option>
+                                    <option value="4">FUNCIONÁRIO</option>
+                                    <option value="5">COMUNIDADE</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="departamento-field">
+                                <label for="departamento">Departamento</label>
+                                <select type="select" id="departamento" name="user.departamento">
+                                    <option value="" disabled selected>Selecione o seu Departamento</option>
+                                    <option value="1">Departamento de Ciências Térmicas e dos Fluidos (DCTEF)</option>
+                                    <option value="2">Departamento de Engenharia Elétrica (DEPEL)</option>
+                                    <option value="3">Departamento de Mecânica e Produção (DEMEP)</option>
+                                    <option value="4">Departamento de Matemática e Estatística (DEMAT)</option>
+                                    <option value="5">Departamento de Ciências Sociais (DECIS)</option>
+                                    <option value="6">Departamento de Ciências da Educação (DECED)</option>
+                                    <option value="7">Departamento de Ciências Naturais (DCNAT)</option>
+                                    <option value="8">Departamento de Biotecnologia (DBTEC)</option>
+                                    <option value="9">Departamento de Filosofia e Métodos (DFIME)</option>
+                                    <option value="10">Departamento de Letras, Artes e Cultura (DELAC)</option>
+                                    <option value="11">Departamento de Medicina (DEMED)</option>
+                                    <option value="12">Departamento de Psicologia (DPSIC)</option>
+                                    <option value="13">Departamento de Artes da Cena (DEACE)</option>
+                                    <option value="14">Departamento de Arquitetura, Urbanismo e Artes Aplicadas (DAUAP)</option>
+                                    <option value="15">Departamento de Ciência da Computação (DCOMP)</option>
+                                    <option value="16">Departamento de Ciências Administrativas e Contábeis (DECAC)</option>
+                                    <option value="17">Departamento de Ciências da Educação Física e Saúde (DCEFS)</option>
+                                    <option value="18">Departamento de Ciências Econômicas (DCECO)</option>
+                                    <option value="19">Departamento de Comunicação Social (DCOMS)</option>
+                                    <option value="20">Departamento de Geociências (DEGEO)</option>
+                                    <option value="21">Departamento de Música (DMUSI)</option>
+                                    <option value="22">Departamento de Zootecnia (DEZOO)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="coordenacao-field">
+                                <label for="coordenacao">Coordenação</label>
+                                <select type="select" id="coordenacao" name="user.coordenacao">
+                                    <option value="" disabled selected>Selecione a sua Coordenação</option>
+                                    <option value="1">Coordenadoria do Curso de Engenharia Mecânica (COMEC)</option>
+                                    <option value="2">Coordenadoria do Curso de Engenharia Elétrica (COELE)</option>
+                                    <option value="3">Coordenadoria do Curso de Engenharia de Produção (COENP)</option>
+                                    <option value="4">Coordenadoria do Curso de Matemática (COMAT)</option>
+                                    <option value="5">Coordenadoria do Curso de História (COHIS)</option>
+                                    <option value="6">Coordenadoria do Curso de Pedagogia (COPED)</option>
+                                    <option value="7">Coordenadoria do Curso de Química (COQUI)</option>
+                                    <option value="8">Coordenadoria do Curso de Física (COFIS)</option>
+                                    <option value="9">Coordenadoria do Curso de Ciêncas Biológicas (COBIO)</option>
+                                    <option value="10">Coordenadoria do Curso de Biotecnologia (COBIT)</option>
+                                    <option value="11">Coordenadoria do Curso de Filosofia (COFIL)</option>
+                                    <option value="12">Coordenadoria do Curso de Letras - Língua Inglesa e suas Literaturas (COLIL)</option>
+                                    <option value="13">Coordenadoria do Curso de Letras - Língua Portuguesa e suas Literaturas (COLET)</option>
+                                    <option value="14">Coordenadoria do Curso de Medicina (CMEDI)</option>
+                                    <option value="15">Coordenadoria do Curso de Psicologia (COPSI)</option>
+                                    <option value="16">Coordenadoria do Curso de Teatro (COTEA)</option>
+                                    <option value="17">Coordenadoria do Curso de Arquitetura e Urbanismo (COARQ)</option>
+                                    <option value="18">Coordenadoria do Curso de Artes Aplicadas (COAAP)</option>
+                                    <option value="19">Coordenadoria do Curso de Ciência da Computação (CCOMP)</option>
+                                    <option value="20">Coordenadoria do Curso de Administração (COADM)</option>
+                                    <option value="21">Coordenadoria do Curso de Ciências Contábeis (COCIC)</option>
+                                    <option value="22">Coordenadoria do Curso de Educação Física (COEFI)</option>
+                                    <option value="23">Coordenadoria do Curso de Ciências Econômicas (COECO)</option>
+                                    <option value="24">Coordenadoria do Curso de Comunicação Social - Jornalismo (CCOMS)</option>
+                                    <option value="25">Coordenadoria do Curso de Geografia (COGEO)</option>
+                                    <option value="26">Coordenadoria do Curso de Música (CMUSI)</option>
+                                    <option value="27">Coordenadoria do Curso de Zootecnia (COZOO)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="matricula-field">
+                                <label for="matricula">Matrícula</label>
+                                <input type="text" id=matricula name="user.matricula" maxlength="9"/>
+                            </div>
+
+                            <div class="form-group" id="cpf-field">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" name="user.cpf" maxlength="14" onkeypress="return formataCPF(this, event, 'date');" size="14"/>
+                            </div>
+
+                            <div class="form-group" id="date-field">
+                                <label for="date">Data de Nascimento</label>
+                                <input type="date" id=date name="user.nascimento"/>
+                            </div>
+                        </div>
+
+                        <div class="form-column">
+                            <div class="form-group" id="endereco-field">
+                                <label for="endereco">Endereço</label>
+                                <input type="text" id="endereco" name="user.endereco" placeholder="Rua, Número, Bairro"/>
+                            </div>
+
+                            <div class="form-group" id="telefone-field">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id=telefone name="user.telefone" placeholder="DDD + Número" oninput="formatarTelefone(this)"/>
+                            </div>
+
+                            <div class="form-group" id="email-field">
+                                <label for="email">E-mail</label>
+                                <input type="email" id=email name="user.email"/>
+                            </div>
+
+                            <div class="form-group" id="senha-field">
+                                <label for="senha">Senha</label>
+                                <input type="password" id=senha name="user.password"/>
+                            </div>
+
+                            <div class="form-group" id="senhaconf-field">
+                                <label for="senha_conf">Confirme Senha</label>
+                                <input type="password" id="senha_conf" name="user.password" required onsubmit="validarSenha()"/>
+                                <br>
+                                <p id="erro-senha" font-size="2rem" style="color: red;"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <div class="form-submit" align="center">
+                <label for="receberEmails">Receber emails
+                <input type="checkbox" id="receberEmails" name="receberEmails" value="sim"/>
+                </label>
+                
+            <div class="button-group">
+                <button 
+                  class="button green" 
+                  form="form-login" 
+                  type="submit" 
+                  title="Cadastrar">Solicitar Cadastro</button>
+            </div>
+            </div>    
+
+            <script type="text/javascript" language="JavaScript">
+                var focusControl = document.forms["form-cadastro"].elements["user.name"];
+                     
+                if (focusControl.type != "hidden" && !focusControl.disabled) {
+                    focusControl.focus();
+                    }
+            </script>
+            </form>
+        </main>
+    </div>
+  </body>

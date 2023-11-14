@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/png" />
+    <title>SGAQ - Adicionar reserva</title>
+
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <link rel="stylesheet" href="../static/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="../static/styles/partials/cards.css" />
+    <link rel="stylesheet" href="../static/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="../static/styles/partials/forms.css" />
+    <link rel="stylesheet" href="../static/styles/partials/animations.css" />
+    <link rel="stylesheet" href="../static/styles/pages/job.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body id="page-job">
+    <header class="page-header inner">
+        <div class="container animate-up">
+          <a href="../templates/index.html" class="back">
+            <img src="../static/images/back.svg" alt="" />
+          </a>
+          <h1>Adicionar Nova Reserva</h1>
+        </div>
+    </header>
+    <div class="container flex animate-up delay-2">
+      <main>
+        <form id="form-job" method="post" action="/job">
+          <fieldset>
+            <legend>Dados da Reserva</legend>
+            <div class="separator light"></div>
+
+            <div class="input-wrapper">
+              <label for="name">Quadra</label>
+              <select id="name" name="name" onchange="showHideUserFields()">
+                <% quadras.forEach((quadra)=>{ %>
+                  <option value="<%= quadra.id %>"> <%= quadra.name %> 1</option>
+                <% }) %> 
+            </select>
+            </div>
+
+            <div class="input-group">
+              <div class="input-wrapper">
+                <label for="daily-hours">Data</label>
+                <input 
+                  type="date"
+                  step="0.1" 
+                  id="daily-hours" 
+                  name="daily-hours"/>
+              </div>
+
+              <div class="input-wrapper">
+                <label for="total-hours">Horário</label>
+                <input 
+                  type="time"
+                  id="total-hours" 
+                  name="total-hours" />
+              </div>
+            </div>
+          </fieldset>
+    
+        </form>
+      </main>
+      <aside class="card">
+        <img src="../static/images/sport.svg" alt="Imagem de Troféu">
+        <p>
+          Preencha os dados ao lado para
+          cadastrar sua reserva
+        </p>
+        <div class="button-group">
+          <button 
+            class="button green" 
+            form="form-job" 
+            type="submit" 
+            title="Salvar Dados">Salvar</button>
+          <a 
+            href="/" 
+            class="button gray">
+            <img 
+              src="../static/images/trash-24.svg" 
+              alt="Cancelar cadastro" 
+              title="Cancelar cadastro">
+          </a>
+        </div>
+      </aside>
+      
+    </div>
+    <!-- end container -->
+  </body>
+</html>
+ 

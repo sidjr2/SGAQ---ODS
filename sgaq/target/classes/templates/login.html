@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/png" />
+    <title>SGAQ - Login</title>
+
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <link rel="stylesheet" href="../static/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="../static/styles/partials/cards.css" />
+    <link rel="stylesheet" href="../static/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="../static/styles/partials/forms.css" />
+    <link rel="stylesheet" href="../static/styles/partials/animations.css" />
+    <link rel="stylesheet" href="../static/styles/pages/login.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body id="page-login">
+    <header class="page-header inner">
+        <div class="container animate-up">
+          <a href="/" class="back">
+            <img id="logo" src="../static/images/logo2.svg" alt="Logo" />
+          </a>
+          <h1>Login</h1>
+        </div>
+    </header>
+    <div class="login flex animate-up delay-2">
+      <main>
+        <form id="form-login" method="post" action="/login">
+          <fieldset>
+            <legend align="center">Entrar no Sistema</legend>
+            <div class="separator light"></div>
+
+            <div>
+              <label for="name">E-mail</label>
+              <input type="email" name="user.email" value=""/>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="name">Senha</label>
+                <input type="password" name="user.password" value=""/>
+            </div>
+
+            <br>
+
+            <label>Esqueceu sua senha? <a href="../templates/recuperarSenha.html">Clique aqui para recuperá-la.</a></label>
+            <br>
+            <label>Não tem uma conta no SGAG? <a href="/cadastrousuario">Cadastre-se.</a></label>
+            <br><br>
+
+            <div class="button-group">
+                <button 
+                  class="button green" 
+                  form="form-login" 
+                  type="submit" 
+                  title="Login">Entrar</button>
+            </div>
+          </fieldset>
+
+        <script type="text/javascript" language="JavaScript">
+            var focusControl = document.forms["form-login"].elements["user.email"];
+             
+            if (focusControl.type != "hidden" && !focusControl.disabled) {
+                focusControl.focus();
+                }
+        </script>
+        </form>
+
+      </main>
+      
+    </div>
+    <!-- end container -->
+  </body>
+</html>

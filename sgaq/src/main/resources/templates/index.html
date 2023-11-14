@@ -1,288 +1,143 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Usuários</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        /* Estilos para o pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            z-index: 1000;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-    </style>
-</head>
-<body>
-<h1>Tabela de Usuários <button onclick="openPopup('user')">+</button></h1>
-<table id="TP_USER">
-    <tr>
-        <th>ID</th>
-        <th>Nome de Usuário</th>
-        <th>Nome</th>
-        <th>Departamento</th>
-        <th>Matrícula</th>
-        <th>Tipo</th>
-        <th>Telefone</th>
-        <th>Cidade</th>
-        <th>Prioridade</th>
-        <th>Ações</th>
-    </tr>
-    <!-- As linhas da tabela serão preenchidas aqui -->
-</table>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/png" />
+    <title>SGAQ</title>
 
-<h1>Tabela de Quadras <button onclick="openPopup('quadra')">+</button></h1>
-<table id="TP_QUADRA">
-    <tr>
-        <th>id_Quadra</th>
-        <th>Nome</th>
-        <th>Local</th>
-        <th>Descricao</th>
-        <th>Capacidade</th>
-        <th>Reservado</th>
-        <th>Ações</th>
-    </tr>
-    <!-- As linhas da tabela serão preenchidas aqui -->
-</table>
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <link rel="stylesheet" href="../static/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="../static/styles/partials/cards.css" />
+    <link rel="stylesheet" href="../static/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="../static/styles/partials/modal.css" />
+    <link rel="stylesheet" href="../static/styles/partials/animations.css" />
+    <link rel="stylesheet" href="../static/styles/pages/index.css" />
 
-<!-- Pop-ups para criar novo usuário e quadra -->
-<div id="userPopup" class="popup">
-    <h2>Novo Usuário</h2>
-    <form>
-        <label for="username">Login:</label>
-        <input type="text" id="username" name="username" required>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
+    <script src="../static/scripts/index.js" defer type="module"></script>
+  </head>
+  <body id="page-index">
+    <header class="page-header">
+      <div class="container">
+        <section id="top" class="animate-up">
+          <h2 class="sr-only">Homepage</h2>
+          <img id="logo" src="../static/images/logo2.svg" alt="Logo" />
+          <span id="notification">
+            <img src="../static/images/alert-octagon.svg" alt="Alerta"/>
+            <% if(reservasDia >= 0 ) { %> 
+              Você tem <%= reservasDia %> reservas no seu dia
+            <% } else { %> 
+              Você não tem reservas no seu dia
+            <% } %> 
+          </span>
+          <a href="/profile" id="avatar-profile">
+            <p><%= profile.name %>  <span>Ver perfil</span></p>
+            <img src="<%= profile.avatar %> "/>
+          </a>
+        </section>
 
-        <label for="userType">Tipo de Usuário:</label>
-        <select id="userType" name="userType" onchange="showHideUserFields()">
-            <option value="Professor">Professor (prioridade 1)</option>
-            <option value="Atlética">Atlética (prioridade 2)</option>
-            <option value="Servidor">Servidor (prioridade 3)</option>
-            <option value="Aluno">Aluno (prioridade 4)</option>
-            <option value="Comunidade">Comunidade (prioridade 5)</option>
-        </select>
+        <div class="separator"></div>
 
-        <div id="departmentField">
-            <label for="department">Departamento:</label>
-            <select id="userDepartment" name="userDepartment">
-                <!-- Aqui você pode adicionar as opções para os departamentos da UFSJ -->
-                <option value="Departamento1">Departamento Educação Fisica</option>
-                <option value="Departamento2">Departamento Computação</option>
-                <option value="Departamento3">Departamento Geografia</option>
-                <option value="Departamento4">Departamento Medicina</option>
-            </select>
+        <section id="summary" class="animate-up delay-1">
+          <h2 class="sr-only">Sumário</h2>
+
+          <div class="info">
+            <div class="total">
+              <strong><%= statusCount.total %> </strong>
+              Reservas no total
+            </div>
+            <div class="in-progress">
+              <strong><%= statusCount.progress %> </strong>
+              Em andamento
+            </div>
+            <div class="finished">
+              <strong><%= statusCount.done %> </strong>
+              Encerradas
+            </div>
+          </div>
+          <a class="button blue" href="../templates/job.html">
+            <span>
+              <img src="../static/images/plus-24.svg" alt="Novo Job" /> 
+            </span>
+            Adicionar nova reserva
+          </a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <main class="animate-up delay-2">
+        <h1 class="sr-only">Reservas</h1>
+        <div class="cards">
+          <% reservas.forEach((reserva)=>{ %>
+            <div class="card <%= reserva.status %> " data-id="<%= reserva.id %> ">
+              <div class="id column"><%= reserva.id %> </div>
+                <div class="name column">
+                  <%= reserva.name %> 
+                </div>
+                <div class="deadline column">
+                  <span>Dia</span>
+                  <p>
+                      <%= reserva.dia %>
+                  </p>
+                </div>
+                <div class="amount column">
+                  <span>Horário</span>
+                  <p><%= reserva.horario %> </p>
+                </div>
+                <div class="status badge column">
+                          <%= reserva.status === 'done' ? 'Encerrado' : 'Agendada' %> 
+                </div>
+                <div class="actions column flex">
+                  <p class="sr-only">Ações</p>
+                  <a 
+                    href="../templates/job-edit.html"
+                    class="button white edit" 
+                    title="Editar Job">
+                    <img src="../static/images/edit-24.svg" alt="Editar Job" />
+                  </a>
+                  <button class="delete button white" title="Excluir Job">
+                    <img src="../static/images/trash-24.svg" alt="Excluir Job" />
+                  </button>
+                </div>
+            </div>
+         <% }) %> 
         </div>
+        <!-- end cards -->
+      </main>
+    </div>
+    <!-- end container -->
 
-        <div id="registrationField">
-            <label for="registration">Matrícula:</label>
-            <input type="text" id="userRegistration" name="userRegistration">
-        </div>
-
-        <label for="phone">Telefone:</label>
-        <input type="tel" id="phone" name="phone">
-
-        <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city">
-
-        <label for="priority">Prioridade:</label>
-        <input type="number" id="priority" name="priority">
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    <button onclick="closePopup('user')">Fechar</button>
-</div>
-
-<div id="quadraPopup" class="popup">
-    <h2>Nova Quadra</h2>
-    <form>
-        <label for="quadraName">Nome da Quadra:</label>
-        <input type="text" id="quadraName" name="quadraName" required>
-
-        <label for="location">Local:</label>
-        <input type="text" id="location" name="location">
-
-        <label for="description">Descrição:</label>
-        <textarea id="description" name="description"></textarea>
-
-        <label for="capacity">Capacidade:</label>
-        <input type="number" id="capacity" name="capacity">
-
-        <label for="reserved">Reservado:</label>
-        <input type="checkbox" id="reserved" name="reserved">
-
-        <!-- Adicione mais campos de formulário, se necessário -->
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    <button onclick="closePopup('quadra')">Fechar</button>
-</div>
-
-<!-- Overlay para escurecer o fundo quando o pop-up estiver aberto -->
-<div id="overlay" class="overlay"></div>
-
-<script>
-    function showHideUserFields() {
-        var userType = document.getElementById('userType').value;
-        var departmentField = document.getElementById('departmentField');
-        var registrationField = document.getElementById('registrationField');
-        var priorityField = document.getElementById('priority');
-
-        if (userType === 'Professor') {
-            priorityField.value = 5;
-        } else if (userType === 'Atlética') {
-            priorityField.value = 4;
-        } else if (userType === 'Servidor') {
-            priorityField.value = 3;
-        } else if (userType === 'Aluno') {
-            priorityField.value = 2;
-        } else if (userType === 'Comunidade') {
-            priorityField.value = 1;
-        }
-
-        if (userType === 'Comunidade') {
-            departmentField.style.display = 'none';
-            registrationField.style.display = 'none';
-        } else {
-            departmentField.style.display = 'block';
-            registrationField.style.display = 'block';
-        }
-    }
-
-
-    function openPopup(type) {
-        document.getElementById(type + 'Popup').style.display = 'block';
-        document.getElementById('overlay').style.display = 'block';
-    }
-
-    function closePopup(type) {
-        document.getElementById(type + 'Popup').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
-    }
-
-    function deleteUser(id, name) {
-        if (confirm('Você realmente deseja apagar o usuário ' + name + ' com ID ' + id + '?')) {
-            fetch('http://localhost:8080/user/delete/' + id, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao deletar usuário');
-                    }
-                    return response.text();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-    }
-
-    function deleteQuadra(id, name) {
-        if (confirm('Você realmente deseja apagar a quadra ' + name + ' com ID ' + id + '?')) {
-            fetch('http://localhost:8080/quadra/delete/' + id, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao deletar quadra');
-                    }
-                    return response.text();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-            }
-        }
-
-        function openPopup(type) {
-            document.getElementById(type + 'Popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function closePopup(type) {
-            document.getElementById(type + 'Popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-    fetch('http://localhost:8080/user')
-        .then(response => response.json())
-        .then(data => {
-            var table = document.getElementById('TP_USER');
-
-            for (var i = 0; i < data.length; i++) {
-                var row = table.insertRow(-1);
-                row.insertCell(0).innerHTML = data[i].id_User;
-                row.insertCell(1).innerHTML = data[i].user_name;
-                row.insertCell(2).innerHTML = data[i].nome;
-                row.insertCell(3).innerHTML = data[i].departamento;
-                row.insertCell(4).innerHTML = data[i].matricula;
-                row.insertCell(5).innerHTML = data[i].tipo;
-                row.insertCell(6).innerHTML = data[i].telefone;
-                row.insertCell(7).innerHTML = data[i].cidade;
-                row.insertCell(8).innerHTML = data[i].prioridade;
-                row.insertCell(9).innerHTML = '<a href="#" onclick="deleteUser(\'' + data[i].id_User + '\', \'' + data[i].nome + '\')"><i class="material-icons">delete_outline</i></a>' +
-                    '<a href="/user/update/' + data[i].id_User + '"><i class="material-icons">edit</i></a>';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-
-    fetch('http://localhost:8080/quadra')
-        .then(response => response.json())
-        .then(data => {
-            var table = document.getElementById('TP_QUADRA');
-
-            for (var i = 0; i < data.length; i++) {
-                var row = table.insertRow(-1);
-                row.insertCell(0).innerHTML = data[i].id_Quadra;
-                row.insertCell(1).innerHTML = data[i].quadra_name;
-                row.insertCell(2).innerHTML = data[i].local;
-                row.insertCell(3).innerHTML = data[i].descricao;
-                row.insertCell(4).innerHTML = data[i].capacidade;
-                row.insertCell(5).innerHTML = data[i].reservado ? 'Sim' : 'Não';
-                row.insertCell(6).innerHTML = '<a href="#" onclick="deleteQuadra(\'' + data[i].id_Quadra + '\', \'' + data[i].quadra_name + '\')"><i class="material-icons">delete_outline</i></a>' +
-                    '<a href="/quadra/update/' + data[i].id_Quadra + '"><i class="material-icons">edit</i></a>';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-
-        function showHideUserFields() {
-            var userType = document.getElementById('userType').value;
-            var departmentField = document.getElementById('departmentField');
-            var registrationField = document.getElementById('registrationField');
-
-            if (userType === 'Comunidade') {
-                departmentField.style.display = 'none';
-                registrationField.style.display = 'none';
-            } else {
-                departmentField.style.display = 'block';
-                registrationField.style.display = 'block';
-            }
-        }
-</script>
-</body>
+    <div class="modal-wrapper">
+      <div class="modal">
+        <img src="../static/images/trash-48.svg" alt="Excluir Job" title="Excluir Job" />
+        <h3>Excluir Job</h3>
+        <p>Quer mesmo excluir esse job? <br/>
+        Ele será apagado para sempre.  
+        <p>
+        <footer>
+          <a 
+            class="button gray" 
+            href="#">Cancelar</a>
+          <button
+            class="button red"
+            type="submit"
+            form="delete-job">Excluir Job</button>
+        </footer>
+      </div>
+      <form 
+        method="post" 
+        action="/job/delete" 
+        id="delete-job"></form>
+    </div>
+    <!-- end modal-wrapper -->
+  </body>
 </html>
-
