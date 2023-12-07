@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <title>Inserir Reserva</title>
+    <meta name="author" content="Sidney,Gustavo,Leonardo,Davi,Matheus">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/006642858d.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div th:replace="fragmentos/fragmentos :: cabecalho"></div>
+
+    <div class="container" style="margin-top: 20px;">
+
+        <h4>Formulário de cadastro de reservas</h4>
+        <hr>
+        <form method="post" action="/reserva/InsertReservas" th:object="${reserva}">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-6 form-group offset-md-3">
+                        <label>Selecione o Campus: </label>
+                        <select id="campusSelect" class="form-control" th:field="*{campus}">
+                            <option th:each="campus : ${campusValues}" th:value="${campus}"
+                                th:text="${#strings.capitalize(campus.name())}"></option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-6 form-group offset-md-3">
+                        <label>Selecione a Quadra: </label>
+                        <select id="quadraSelect" class="form-control" th:field="*{quadra}">
+                            <option th:each="quadra : ${quadraList}" th:value="${quadra.id}" th:text="${quadra.nome}"></option>
+                        </select>
+                        <div class="form-group">
+                            <label for=""><b>Data e hora:</b></label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="datetime-local" class="form-control" name="data_hora" th:field="*{dataHora}" pattern="yyyy-MM-ddTHH:mm" required>
+                                    <small class="form-text text-muted"><i>* Data e hora de início do
+                                            funcionamento.</i></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="submit" class="btn btn-outline-success">Salvar</button>
+                            <a th:href="@{/index}" class="btn btn-outline-danger">Voltar</a>
+                        </div>
+
+        </form>
+
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<!-- Adicione isso ao corpo da sua página HTML, após a inclusão do jQuery -->
+<script>
+    $(document).ready(function () {
+        // Função para atualizar dinamicamente as opções do campo de quadra
+        function atualizarQuadras() {
+            var campusSelecionado = $("#campusSelect").val();
+            // Realize uma requisição AJAX para obter as quadras com base no campus
+            $.get("/reserva/obterQuadrasPorCampus", { campus: campusSelecionado }, function (data) {
+                // Limpe as opções atuais do campo de quadra
+                $("#quadraSelect").empty();
+                // Adicione as novas opções ao campo de quadra
+                $.each(data, function (index, quadra) {
+                    $("#quadraSelect").append('<option value="' + quadra.id + '">' + quadra.nome + '</option>');
+                });
+            });
+        }
+        // Vincule a função ao evento de mudança no campo de campus
+        $("#campusSelect").change(atualizarQuadras);
+        atualizarQuadras();
+    });
+</script>
+
+    
+</body>
+
+</html>
