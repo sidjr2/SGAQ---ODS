@@ -1,9 +1,14 @@
 package br.edu.ufsj.dcomp.sgaq.controller;
 
 
+import br.edu.ufsj.dcomp.sgaq.enums.Campus;
 import br.edu.ufsj.dcomp.sgaq.model.Equipamento;
+import br.edu.ufsj.dcomp.sgaq.model.Quadra;
 import br.edu.ufsj.dcomp.sgaq.repository.EquipamentoRepository;
+import br.edu.ufsj.dcomp.sgaq.repository.QuadraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,22 +24,27 @@ public class EquipamentoController {
 
     @Autowired
     private EquipamentoRepository equipamentoRepository;
+    private QuadraRepository quadraRepository;
+
 
     @GetMapping("/inserirEquipamentos")
     public ModelAndView insertEquipamentos(Equipamento equipamento) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("Equipamento/formEquipamento");
         modelAndView.addObject("equipamento", new Equipamento());
+        modelAndView.addObject("campusValues", Campus.values());
         return modelAndView;
     }
 
     @PostMapping("InsertEquipamentos")
-    public ModelAndView inserirEquipamento(@Valid Equipamento equipamento, BindingResult bindingResult) {
+    public ModelAndView inserirEquipamento(@Valid Equipamento equipamento, @RequestParam("quadra") Long quadraId, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
+        Quadra quadra = quadraRepository.findById(quadraId).orElse(null);
         if(bindingResult.hasErrors()) {
             modelAndView.setViewName("Equipamento/formEquipamento");
             modelAndView.addObject("equipamento", equipamento);
         } else {
+            equipamento.setQuadra(quadra);
             modelAndView.setViewName("redirect:/equipamento/equipamentos-adicionados");
             equipamentoRepository.save(equipamento);
         }
@@ -127,5 +137,6 @@ public class EquipamentoController {
         return modelAndViewReserva;
     }
 
+  mas
 
 }

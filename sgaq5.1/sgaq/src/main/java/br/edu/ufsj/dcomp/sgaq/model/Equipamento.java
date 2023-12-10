@@ -1,11 +1,21 @@
 package br.edu.ufsj.dcomp.sgaq.model;
 
+import br.edu.ufsj.dcomp.sgaq.enums.Campus;
 import br.edu.ufsj.dcomp.sgaq.enums.Status;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 @Entity
 public class Equipamento {
+    private Campus campus;
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

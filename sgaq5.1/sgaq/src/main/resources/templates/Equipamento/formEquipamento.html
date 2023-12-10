@@ -20,8 +20,21 @@
             <form method="post" action="/equipamento/InsertEquipamentos" th:object="${equipamento}">
             <div class="row">
                 <div class="col-md-6 form-group offset-md-3">
-                <label>Descrição do equipamento:</label>
-                <input class="form-control" placeholder="Ex: Bola de Futsal" th:field="*{nome}">
+                    <label>Selecione o Campus: </label>
+                    <select id="campusSelect" class="form-control" th:field="*{campus}">
+                        <option th:each="campus : ${campusValues}" th:value="${campus}"
+                                th:text="${#strings.capitalize(campus.name())}"></option>
+                    </select>
+                </div>
+
+
+                <div class="col-md-6 form-group offset-md-3">
+                    <label>Selecione a Quadra: </label>
+                    <select id="quadraSelect" class="form-control" th:field="*{quadra}">
+                        <option th:each="quadra : ${quadraList}" th:value="${quadra.id}" th:text="${quadra.nome}"></option>
+                    </select>
+                    <label>Descrição do equipamento:</label>
+                    <input class="form-control" placeholder="Ex: Bola de Futsal" th:field="*{nome}">
                 </div>
             </div>
 
@@ -39,7 +52,7 @@
                     </div>
             </div>
 
-            
+
             <div class="row">
                 <div class="col-md-6 form-group offset-md-3">
                 <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('quantidade')}">
@@ -62,5 +75,25 @@
                 <script src="/js/main.js"></script>
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Função para atualizar dinamicamente as opções do campo de quadra
+                function atualizarQuadras() {
+                    var campusSelecionado = $("#campusSelect").val();
+                    // Realize uma requisição AJAX para obter as quadras com base no campus
+                    $.get("/equipamento/obterQuadrasPorCampus", { campus: campusSelecionado }, function (data) {
+                        // Limpe as opções atuais do campo de quadra
+                        $("#quadraSelect").empty();
+                        // Adicione as novas opções ao campo de quadra
+                        $.each(data, function (index, quadra) {
+                            $("#quadraSelect").append('<option value="' + quadra.id + '">' + quadra.nome + '</option>');
+                        });
+                    });
+                }
+                // Vincule a função ao evento de mudança no campo de campus
+                $("#campusSelect").change(atualizarQuadras);
+                atualizarQuadras();
+            });
+        </script>
     </body>
 </html>
