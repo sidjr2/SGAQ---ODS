@@ -25,11 +25,6 @@ public class Reserva {
     @JoinColumn(name = "quadra_id")
     private Quadra quadra;
 
-    @Column(name = "solicitacoes_id")
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private Solicitacoes solicitacoes;
-
     @Column(name = "presenca")
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -89,14 +84,6 @@ public class Reserva {
         }
     }
     // Outros campos e métodos necessários...
-    public Solicitacoes getSolicitacoes() {
-        return solicitacoes;
-    }
-
-    public void setSolicitacoes(Solicitacoes solicitacoes) {
-        this.solicitacoes = solicitacoes;
-    }
-
     public Status getStatus() {
         return presenca;
     }
