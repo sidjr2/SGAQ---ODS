@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @Entity
-public class Presença {
+public class Presenca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
