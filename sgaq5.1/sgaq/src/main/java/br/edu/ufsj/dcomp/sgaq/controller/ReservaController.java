@@ -1,15 +1,17 @@
 package br.edu.ufsj.dcomp.sgaq.controller;
 
 import br.edu.ufsj.dcomp.sgaq.enums.Campus;
-import br.edu.ufsj.dcomp.sgaq.model.Quadra;
-import br.edu.ufsj.dcomp.sgaq.model.Reserva;
-import br.edu.ufsj.dcomp.sgaq.model.Usuario;
+import br.edu.ufsj.dcomp.sgaq.enums.Status;
+import br.edu.ufsj.dcomp.sgaq.model.*;
+import br.edu.ufsj.dcomp.sgaq.repository.PresencaRepository;
 import br.edu.ufsj.dcomp.sgaq.repository.ReservaRepository;
+import br.edu.ufsj.dcomp.sgaq.repository.PunicaoRepository;
 import br.edu.ufsj.dcomp.sgaq.repository.QuadraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +37,14 @@ public class ReservaController {
     private ReservaRepository reservaRepository;
     @Autowired
     private QuadraRepository quadraRepository;
-     @Autowired
+
+    @Autowired
+    private PunicaoRepository punicaoRepository;
+
+    @Autowired
+    private PresencaRepository presencaRepository;
+
+    @Autowired
     private HttpSession session;
 
     @GetMapping("/inserirReservas")
@@ -88,13 +97,57 @@ public class ReservaController {
         }
     }    
 
-
-
     @GetMapping("/reservas-adicionados")
+    @Transactional
     public ModelAndView listagemReservas() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("Reserva/listReservas");
-        modelAndView.addObject("reservasList", reservaRepository.findAll());
+        List<Reserva> reservas = reservaRepository.findAll();
+        for(Reserva reserva: reservas){
+            LocalDateTime agora = LocalDateTime.now();
+
+            if (agora.isBefore(reserva.getDataHoraInical())){
+                reserva.setPunicao(Status.ATIVO);
+                reserva.setPresenca(Status.INATIVO);
+                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                Punicao punicao = new Punicao();
+                punicao.setUsuario(reserva.getUsuario());
+                punicao.setReserva(reserva);
+                punicao.setDataHora(LocalDateTime.now());
+                punicao.setPunicao(Status.ATIVO);
+                punicaoRepository.save(punicao);
+
+                //presenças
+                Presenca presenca = new Presenca();
+                presenca.setUsuario(reserva.getUsuario());
+                presenca.setReserva(reserva);
+                presenca.setDataHora(LocalDateTime.now());
+                presenca.setPresenca(Status.INATIVO);
+                presencaRepository.save(presenca);
+
+            }
+            else{
+                reserva.setPunicao(Status.INATIVO);
+                reserva.setPresenca(Status.ATIVO);
+                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                Punicao punicao = new Punicao();
+                punicao.setUsuario(reserva.getUsuario());
+                punicao.setReserva(reserva);
+                punicao.setDataHora(LocalDateTime.now());
+                punicao.setPunicao(Status.INATIVO);
+                punicaoRepository.save(punicao);
+
+                //presenças
+                Presenca presenca = new Presenca();
+                presenca.setUsuario(reserva.getUsuario());
+                presenca.setReserva(reserva);
+                presenca.setDataHora(LocalDateTime.now());
+                presenca.setPresenca(Status.ATIVO);
+                presencaRepository.save(presenca);
+            }
+        }
+        reservaRepository.saveAll(reservas);
+        modelAndView.addObject("reservasList", reservas);
         return modelAndView;
     }
 
@@ -120,8 +173,10 @@ public class ReservaController {
         Reserva reservaExistente = reservaRepository.getById(reserva.getId());
          // Atualizar apenas o campo dataHora
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-         LocalDateTime dataHora = LocalDateTime.parse(reserva.getDataHoraStr(), formatter);
-         reservaExistente.setDataHora(reserva.getDataHoraStr());
+         LocalDateTime dataHoraInical = LocalDateTime.parse(reserva.getDataHoraStrInical(), formatter);
+         reservaExistente.setDataHoraInical(reserva.getDataHoraStrInical());
+         LocalDateTime dataHoraFinal = LocalDateTime.parse(reserva.getDataHoraStrFinal(), formatter);
+         reservaExistente.setDataHoraFinal(reserva.getDataHoraStrFinal());
         // Salvar a reserva atualizada
         reservaRepository.save(reservaExistente);
         modelAndView.setViewName("redirect:/reserva/reservas-adicionados");
@@ -151,6 +206,7 @@ public class ReservaController {
 //    }
 
     @PostMapping("/pesquisar-reserva")
+    @Transactional
     public ModelAndView pesquisarReserva(@RequestParam(required = false) String nome) {
         ModelAndView modelAndView = new ModelAndView();
         List<Reserva> listaReservas;
@@ -159,6 +215,51 @@ public class ReservaController {
         } else {
             listaReservas = reservaRepository.findByNomeContainingIgnoreCase(nome);
         }
+        // Percorre as reservas para atualizar os status
+        for (Reserva reserva : listaReservas) {
+            LocalDateTime agora = LocalDateTime.now();
+
+            if (reserva.getDataHoraInical().isBefore(agora)){
+                reserva.setPunicao(Status.ATIVO);
+                reserva.setPresenca(Status.INATIVO);
+                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                Punicao punicao = new Punicao();
+                punicao.setUsuario(reserva.getUsuario());
+                punicao.setReserva(reserva);
+                punicao.setDataHora(LocalDateTime.now());
+                punicao.setPunicao(Status.ATIVO);
+                punicaoRepository.save(punicao);
+
+                //presenças
+                Presenca presenca = new Presenca();
+                presenca.setUsuario(reserva.getUsuario());
+                presenca.setReserva(reserva);
+                presenca.setDataHora(LocalDateTime.now());
+                presenca.setPresenca(Status.INATIVO);
+                presencaRepository.save(presenca);
+
+            }
+            else{
+                reserva.setPunicao(Status.INATIVO);
+                reserva.setPresenca(Status.ATIVO);
+                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                Punicao punicao = new Punicao();
+                punicao.setUsuario(reserva.getUsuario());
+                punicao.setReserva(reserva);
+                punicao.setDataHora(LocalDateTime.now());
+                punicao.setPunicao(Status.INATIVO);
+                punicaoRepository.save(punicao);
+
+                //presenças
+                Presenca presenca = new Presenca();
+                presenca.setUsuario(reserva.getUsuario());
+                presenca.setReserva(reserva);
+                presenca.setDataHora(LocalDateTime.now());
+                presenca.setPresenca(Status.ATIVO);
+                presencaRepository.save(presenca);
+            }
+        }
+        reservaRepository.saveAll(listaReservas);
         modelAndView.addObject("ListaDeReservas", listaReservas);
         modelAndView.setViewName("Reserva/pesquisa-resultado");
         return modelAndView;

@@ -125,13 +125,13 @@ public class EquipamentoController {
         List<Equipamento> listaEquipamentos;
 
         if (quadra != null && !quadra.trim().isEmpty()) {
-            listaEquipamentos = equipamentoRepository.findByReserva(quadra);
+            //listaEquipamentos = equipamentoRepository.findByReserva(quadra);
         } else {
             // Lógica adequada se quadra for nulo ou vazio
             listaEquipamentos = new ArrayList<>(); // ou qualquer outra lógica
         }
 
-        modelAndViewReserva.addObject("ListaDeEquipamentos", listaEquipamentos);
+        //modelAndViewReserva.addObject("ListaDeEquipamentos", listaEquipamentos);
         modelAndViewReserva.setViewName("Equipamento/pesquisa-resultado");
 
         return modelAndViewReserva;

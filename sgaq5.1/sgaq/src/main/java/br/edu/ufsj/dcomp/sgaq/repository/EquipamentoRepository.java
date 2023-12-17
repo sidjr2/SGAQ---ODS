@@ -16,8 +16,8 @@ public interface EquipamentoRepository extends JpaRepository<Equipamento, Long>,
     @Query("SELECT i FROM Equipamento i WHERE i.disponivel = 'INATIVO' ")
     public List<Equipamento> findByStatusInativo();
 
-    @Query("SELECT e FROM Equipamento e INNER JOIN e.quadra q WHERE e.reserva = 'APROVADO' AND q.id = :quadra")
-    public List<Equipamento> findByReserva(@Param("quadra") String quadra);
+    //@Query("SELECT e FROM Equipamento e INNER JOIN e.quadra q WHERE e.reserva = 'APROVADO' AND q.id = :quadra")
+    //public List<Equipamento> findByReserva(@Param("quadra") String quadra);
 
     public List<Equipamento> findByNomeContainingIgnoreCase(String nome);
 

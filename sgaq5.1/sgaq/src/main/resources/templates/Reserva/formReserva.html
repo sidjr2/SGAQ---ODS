@@ -31,21 +31,28 @@
                         </select>
                     </div>
 
-
                     <div class="col-md-6 form-group offset-md-3">
                         <label>Selecione a Quadra: </label>
                         <select id="quadraSelect" class="form-control" th:field="*{quadra}">
                             <option th:each="quadra : ${quadraList}" th:value="${quadra.id}" th:text="${quadra.nome}"></option>
                         </select>
                         <div class="form-group">
-                            <label for=""><b>Data e hora:</b></label>
+                            <label for=""><b>Data e hora de inicio:</b></label>
                             <div class="row">
                                 <div class="col">
-                                    <input type="datetime-local" class="form-control" name="data_hora" th:field="*{dataHora}" pattern="yyyy-MM-ddTHH:mm" required>
-                                    <small class="form-text text-muted"><i>* Data e hora de início do
-                                            funcionamento.</i></small>
+                                    <input type="datetime-local" class="form-control" name="data_hora" th:field="*{dataHoraInical}" pattern="yyyy-MM-ddTHH:mm" required>
+                                    <small class="form-text text-muted"><i>* Data e hora de início da reserva.</i></small>
                                 </div>
                             </div>
+                            <label for=""><b>Data e hora de fim:</b></label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="datetime-local" class="form-control" name="data_hora" th:field="*{dataHoraFinal}" pattern="yyyy-MM-ddTHH:mm" required>
+                                    <small class="form-text text-muted"><i>* Data e hora de final da reserva.</i></small>
+                                </div>
+                            </div>
+                            <i>* O tempo de reserva esta limitado em 50 minutos por reserva.</i>
+                            <i>Podendo, o usuário, reservar dois horarios seguidos.</i>
                         </div>
 
                         <div class="d-grid gap-2 d-md-block">

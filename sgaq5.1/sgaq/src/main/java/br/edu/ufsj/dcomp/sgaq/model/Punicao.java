@@ -1,5 +1,8 @@
 package br.edu.ufsj.dcomp.sgaq.model;
 
+import br.edu.ufsj.dcomp.sgaq.enums.Status;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +13,24 @@ public class Punicao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "punicao")
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Status punicao;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "reserva_id")
+    private Reserva reserva;
+
+    @Column(name = "data_hora")
+    private LocalDateTime dataHora;
+
+    @Transient
+    private String dataHoraStr;
 
     public Long getId() {
         return id;
@@ -39,22 +60,17 @@ public class Punicao {
         this.dataHora = dataHora;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-    @ManyToOne
-    @JoinColumn(name = "reserva_id")
-    private Reserva reserva;
-
-    @Column(name = "data_hora")
-    private LocalDateTime dataHora;
-
-    @Transient
-    private String dataHoraStr;
-
     public String getDataHoraStr() {
         // Converte LocalDateTime para String no formato "yyyy-MM-dd'T'HH:mm"
         return dataHora != null ? dataHora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")) : null;
+    }
+
+    public Status getPunicao() {
+        return punicao;
+    }
+
+    public void setPunicao(Status punicao) {
+        this.punicao = punicao;
     }
 
     public void setDataHoraStr(String dataHoraStr) {

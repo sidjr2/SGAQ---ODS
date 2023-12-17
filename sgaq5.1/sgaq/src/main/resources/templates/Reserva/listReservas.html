@@ -27,18 +27,24 @@
             <th scope="col">Tipo</th>
             <th scope="col">Campus</th>
             <th scope="col">Quadra</th>
-            <th scope="col">Data e Hora</th>
+            <th scope="col">Data e Hora Inicial</th>
+            <th scope="col">Data e Hora Final</th>
+            <th scope="col">Presença</th>
+            <th scope="col">Punição</th>
             <th scope="col">Ação</th>
 
         </thead>
         <tbody>
             <tr scope="row" th:each="reservas : ${reservasList}">
-                <td th:text="${reservas.usuario.user}"></td>
-                <td th:text="${reservas.usuario.email}"></td>
-                <td th:text="${reservas.usuario.tipoUsuario}"></td>
-                <td th:text="${reservas.campus}"></td>
-                <td th:text="${reservas.quadra.nome}"></td>
-                <td th:text="${#temporals.format(reservas.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${reservas?.usuario?.user}"></td>
+                <td th:text="${reservas?.usuario?.email}">User Email</td>
+                <td th:text="${reservas?.usuario?.tipoUsuario}"></td>
+                <td th:text="${reservas?.campus}"></td>
+                <td th:text="${reservas?.quadra.nome}"></td>
+                <td th:text="${#temporals.format(reservas?.dataHoraInical, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(reservas?.dataHoraFinal, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${reservas?.presenca}"></td>
+                <td th:text="${reservas?.punicao}"></td>
                 <td>
                  <a class="btn btn-primary" th:href="@{editar/{id}(id=${reservas.id})}">
                  <i class="bi bi-pencil-square"></i> Editar</a>
