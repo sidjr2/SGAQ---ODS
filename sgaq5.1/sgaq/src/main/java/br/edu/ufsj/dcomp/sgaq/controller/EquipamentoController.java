@@ -137,6 +137,4 @@ public class EquipamentoController {
         return modelAndViewReserva;
     }
 
-  mas
-
 }
