@@ -17,12 +17,12 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-![Java](https://img.shields.io/badge/Java-red)
-![JavaScript](https://img.shields.io/badge/JavaScript-yellow)
-![Springboot](https://img.shields.io/badge/Spring-boot-green)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-purple)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-darkgreen)
-![Mysql](https://img.shields.io/badge/MySQL-blue)
+- ![Java](https://img.shields.io/badge/Java-red)
+- ![JavaScript](https://img.shields.io/badge/JavaScript-yellow)
+- ![Springboot](https://img.shields.io/badge/Springboot-green)
+- ![Bootstrap](https://img.shields.io/badge/Bootstrap-purple)
+- ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-darkgreen)
+- ![Mysql](https://img.shields.io/badge/MySQL-blue)
 
 
 ## 💻 Projeto
