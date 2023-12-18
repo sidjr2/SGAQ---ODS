@@ -242,19 +242,15 @@ public class ReservaController {
         for (Reserva reserva : listaReservas) {
 
             if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
-                System.out.println("cheguei até aqui!!!!!!!!!!");
-                System.out.println(reserva.getPresenca() != null && reserva.getPresenca().equals(Status.NAOREALIZADO));
+                LocalDateTime horaPunicao = LocalDateTime.now();
 
-                if (reserva.getPresenca() != null && reserva.getPresenca().equals(Status.NAOREALIZADO)) {
-                    // Registra a punição se a presença não foi realizada
-                    reserva.setPresenca(Status.NAOREALIZADO);
-                    reserva.setPunicao(Status.DENTRODOHORARIO);
-                } else {
-                    // Lógica a ser executada se a presença foi realizada
-                    reserva.setPresenca(Status.REALIZADO);
-                    reserva.setPunicao(Status.INATIVO);
-                }
+                Punicao punicao = new Punicao();
+                punicao.setReserva(reserva);
+                punicao.setPunicao(Status.FORADOHORARIO);
+                punicao.setDataHora(horaPunicao);
+                punicaoRepository.save(punicao);
             }
+
         }
         reservaRepository.saveAll(listaReservas);
         List<Object[]> reservasequipamento = reservaRepository.findByEquipamento();
