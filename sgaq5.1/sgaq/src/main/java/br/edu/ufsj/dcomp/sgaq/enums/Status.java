@@ -3,14 +3,16 @@ package br.edu.ufsj.dcomp.sgaq.enums;
 public enum Status {
 
     ATIVO("Ativo"),
+
     INATIVO("Inativo"),
 
-    NAOREALIZADO("Não Realizado"),
     REALIZADO("Realizado"),
 
-    DENTRODOHORARIO("Dentro do Horario");
+    NAOREALIZADO("Não Realizado"),
 
+    DENTRODOHORARIO("Dentro do Horario"),
 
+    FORADOHORARIO("Fora do Horario");
 
     private String status;
 

@@ -27,6 +27,10 @@ public interface ReservaRepository extends JpaRepository<Reserva,Long>, CrudRepo
     @Query("SELECT i FROM Reserva i WHERE i.punicao = 'INATIVO' ")
     public List<Reserva> findByPunicaoInativo();
 
+    List<Reserva> findByPresenca(Status presenca);
+
+    List<Reserva> findByPunicao(Status punicao);
+
 
     @Modifying
     @Query("UPDATE Presenca p SET p.presenca = :novoStatus WHERE p.reserva.id = :id")

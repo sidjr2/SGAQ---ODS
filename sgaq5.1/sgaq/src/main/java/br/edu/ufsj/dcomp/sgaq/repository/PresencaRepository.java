@@ -1,5 +1,6 @@
 package br.edu.ufsj.dcomp.sgaq.repository;
 
+import br.edu.ufsj.dcomp.sgaq.enums.Status;
 import br.edu.ufsj.dcomp.sgaq.model.Presenca;
 import br.edu.ufsj.dcomp.sgaq.model.Quadra;
 import br.edu.ufsj.dcomp.sgaq.model.Reserva;
@@ -21,6 +22,10 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long>, CrudR
     @Query("SELECT i FROM Presenca i WHERE i.presenca = 'INATIVO' ")
     public List<Presenca> findByStatusInativo();
 
+    List<Presenca> findByPresenca(Status status);
 
     Presenca findByUsuarioAndReserva(Usuario usuario, Reserva reserva);
+
+    // Novo método para verificar se já existe uma presença para a reserva
+    boolean existsByReserva(Reserva reserva);
 }
