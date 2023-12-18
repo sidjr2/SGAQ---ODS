@@ -12,16 +12,18 @@
 </p>
 
 
+
 ## 🚀 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- Java
-- JavaScript
-- Springboot
-- Bootstrap
-- Thymeleaf
-- Mysql
+![Java](https://img.shields.io/badge/Java-red)
+![JavaScript](https://img.shields.io/badge/Java-Script-yellow)
+![Springboot](https://img.shields.io/badge/Spring-boot-green)
+![Bootstrap](https://img.shields.io/badge/Boot-strap-purple)
+![Thymeleaf](https://img.shields.io/badge/Thyme-leaf-darkgreen)
+![Mysql](https://img.shields.io/badge/My-SQL-blue)
+
 
 ## 💻 Projeto
 
