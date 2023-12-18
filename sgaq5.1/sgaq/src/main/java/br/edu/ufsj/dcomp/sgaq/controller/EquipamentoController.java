@@ -24,9 +24,9 @@ public class EquipamentoController {
 
     @Autowired
     private EquipamentoRepository equipamentoRepository;
-    private QuadraRepository quadraRepository;
     @Autowired
-    private ReservaEquipamentoRepository reservaEquipamentoRepository;
+    private QuadraRepository quadraRepository;
+
 
 
     @GetMapping("/inserirEquipamentos")
@@ -121,23 +121,6 @@ public class EquipamentoController {
         return modelAndView;
     }
 
-    @GetMapping("/pesquisar-equipamento-reserva/{id}")
-    public ModelAndView pesquisarEquipamentoReserva(@PathVariable("id") String quadra) {
-        ModelAndView modelAndViewReserva = new ModelAndView();
-        List<Equipamento> listaEquipamentos;
-
-        if (quadra != null && !quadra.trim().isEmpty()) {
-            //listaEquipamentos = equipamentoRepository.findByReserva(quadra);
-        } else {
-            // Lógica adequada se quadra for nulo ou vazio
-            listaEquipamentos = new ArrayList<>(); // ou qualquer outra lógica
-        }
-
-        //modelAndViewReserva.addObject("ListaDeEquipamentos", listaEquipamentos);
-        modelAndViewReserva.setViewName("Equipamento/pesquisa-resultado");
-
-        return modelAndViewReserva;
-    }
     @GetMapping("/obterQuadrasPorCampus")
     @ResponseBody
     public ResponseEntity<List<Quadra>> obterQuadrasPorCampus(@RequestParam String campus) {

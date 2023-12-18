@@ -1,6 +1,8 @@
 package br.edu.ufsj.dcomp.sgaq.repository;
 
 import br.edu.ufsj.dcomp.sgaq.model.Equipamento;
+import br.edu.ufsj.dcomp.sgaq.model.Quadra;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,6 +20,9 @@ public interface EquipamentoRepository extends JpaRepository<Equipamento, Long>,
 
     //@Query("SELECT e FROM Equipamento e INNER JOIN e.quadra q WHERE e.reserva = 'APROVADO' AND q.id = :quadra")
     //public List<Equipamento> findByReserva(@Param("quadra") String quadra);
+
+    @Query("SELECT e FROM Equipamento e WHERE e.quadra = :quadra and e.disponivel = 'ATIVO' ")
+    List<Equipamento> findEquipamentoByQuadraId(Quadra quadra);
 
     public List<Equipamento> findByNomeContainingIgnoreCase(String nome);
 

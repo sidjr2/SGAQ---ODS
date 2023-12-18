@@ -7,6 +7,8 @@ import br.edu.ufsj.dcomp.sgaq.repository.PresencaRepository;
 import br.edu.ufsj.dcomp.sgaq.repository.ReservaRepository;
 import br.edu.ufsj.dcomp.sgaq.repository.PunicaoRepository;
 import br.edu.ufsj.dcomp.sgaq.repository.QuadraRepository;
+import br.edu.ufsj.dcomp.sgaq.repository.EquipamentoRepository;
+import br.edu.ufsj.dcomp.sgaq.repository.ReservaEquipamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +48,12 @@ public class ReservaController {
     private PresencaRepository presencaRepository;
 
     @Autowired
+    private EquipamentoRepository equipamentoRepository;
+
+    @Autowired
+    private ReservaEquipamentoRepository reservaEquipamentoRepository;
+
+    @Autowired
     private HttpSession session;
 
     @GetMapping("/inserirReservas")
@@ -62,12 +70,13 @@ public class ReservaController {
     }
 
     @PostMapping("InsertReservas")
-    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, HttpSession session, BindingResult bindingResult) {
+    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, @RequestParam("equipamento") Long equipamentoId, HttpSession session, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         // Obter usuário logado da sessão
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         Quadra quadra = quadraRepository.findById(quadraId).orElse(null);
+        Equipamento equipamento = equipamentoRepository.findById(equipamentoId).orElse(null);
         // Definir o usuário logado na reserva
         if (usuarioLogado != null) {
             reserva.setUsuario(usuarioLogado);
@@ -78,8 +87,13 @@ public class ReservaController {
             modelAndView.addObject("reserva",reserva);
         } else {
             reserva.setQuadra(quadra);
-            modelAndView.setViewName("redirect:/reserva/reservas-adicionados");
+
             reservaRepository.save(reserva);
+            ReservaEquipamento reservaEquipamento = new ReservaEquipamento();
+            reservaEquipamento.setReserva(reserva);
+            reservaEquipamento.setEquipamento(equipamento);
+            reservaEquipamentoRepository.save(reservaEquipamento);
+            modelAndView.setViewName("redirect:/reserva/reservas-adicionados");
         }
         return modelAndView;
     }
@@ -286,5 +300,20 @@ public class ReservaController {
         modelAndView.addObject("ListaDeReservas", listaReservas);
         modelAndView.setViewName("Reserva/pesquisa-resultado");
         return modelAndView;
+    }
+
+    @GetMapping("/obterEquipamentosPorQuadra")
+    @ResponseBody
+    public ResponseEntity<List<Equipamento>> obterEquipamentosPorQuadra( @RequestParam("quadra") Long quadraId) {
+        try {
+             System.out.println(quadraId);
+            Quadra quadra = quadraRepository.findById(quadraId).orElse(null);
+            System.out.println(quadra);
+            List<Equipamento> equipamentoPorQuadraList = equipamentoRepository.findEquipamentoByQuadraId(quadra);
+            return new ResponseEntity<>(equipamentoPorQuadraList, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // Lida com a exceção se a conversão do enum falhar
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

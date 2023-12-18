@@ -55,6 +55,10 @@
                             <i>Podendo, o usuário, reservar dois horarios seguidos.</i>
                         </div>
 
+                        <label>Selecione o equipamento: </label>
+                        <select id="equipamentoSelect" class="form-control">
+                        </select>
+
                         <div class="d-grid gap-2 d-md-block">
                             <button type="submit" class="btn btn-outline-success">Salvar</button>
                             <a th:href="@{/index}" class="btn btn-outline-danger">Voltar</a>
@@ -73,7 +77,7 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <!-- Adicione isso ao corpo da sua página HTML, após a inclusão do jQuery -->
 <script>
-    $(document).ready(function () {
+     $(document).ready(function () {
         // Função para atualizar dinamicamente as opções do campo de quadra
         function atualizarQuadras() {
             var campusSelecionado = $("#campusSelect").val();
@@ -82,6 +86,7 @@
                 // Limpe as opções atuais do campo de quadra
                 $("#quadraSelect").empty();
                 // Adicione as novas opções ao campo de quadra
+                $("#quadraSelect").append('<option>' + 'Selecione uma quadra' + '</option>');
                 $.each(data, function (index, quadra) {
                     $("#quadraSelect").append('<option value="' + quadra.id + '">' + quadra.nome + '</option>');
                 });
@@ -90,6 +95,18 @@
         // Vincule a função ao evento de mudança no campo de campus
         $("#campusSelect").change(atualizarQuadras);
         atualizarQuadras();
+
+        $("#quadraSelect").on("change", function () {
+            var quadraSelecionada = $("#quadraSelect").val();
+            $.get("/reserva/obterEquipamentosPorQuadra", { quadra: quadraSelecionada }, function (data) {
+                // Limpe as opções atuais do campo de equipamento
+                $("#equipamentoSelect").empty();
+                // Adicione as novas opções ao campo de equipamento
+                $.each(data, function (index, equipamento) {
+                    $("#equipamentoSelect").append('<option value="' + equipamento.id + '">' + equipamento.nome + '</option>');
+                });
+            });
+        });
     });
 </script>
 
