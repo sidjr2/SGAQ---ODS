@@ -99,7 +99,6 @@ public class ReservaController {
             reservaEquipamento.setReserva(reserva);
             reservaEquipamento.setEquipamento(equipamento);
             reservaEquipamento.setDataHora(agora);
-            reservaEquipamento.setDataHora(agora);
             reservaEquipamentoRepository.save(reservaEquipamento);
             modelAndView.setViewName("redirect:/reserva/reservas-adicionados");
         }
