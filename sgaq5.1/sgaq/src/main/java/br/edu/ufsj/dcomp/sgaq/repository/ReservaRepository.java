@@ -30,9 +30,15 @@ public interface ReservaRepository extends JpaRepository<Reserva,Long>, CrudRepo
 
     @Modifying
     @Query("UPDATE Presenca p SET p.presenca = :novoStatus WHERE p.reserva.id = :id")
-    int atualizarStatusPorId(@Param("id") Long id, @Param("novoStatus") Status novoStatus);
+    public int atualizarStatusPorId(@Param("id") Long id, @Param("novoStatus") Status novoStatus);
 
     public Optional<Reserva> findById(Long id);
 
     public List<Reserva> findByNomeContainingIgnoreCase(String nome);
+
+
+    @Query("SELECT r.id as reserva_id, r.usuario.user, r.usuario.email, r.usuario.tipoUsuario, r.campus, r.quadra.nome, r.dataHoraInical, r.dataHoraFinal, r.presenca, r.punicao, e.nome as equipamento_nome FROM Reserva r INNER JOIN ReservaEquipamento re ON r.id = re.reserva.id INNER JOIN Equipamento e ON re.equipamento.id = e.id")
+    public List<Object[]> findByEquipamento();
+
+
 }

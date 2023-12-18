@@ -32,30 +32,33 @@
             <th scope="col">Data e Hora Final</th>
             <th scope="col">Presença</th>
             <th scope="col">Punição</th>
+            <th scope="col">Equipamento</th>
             <th scope="col">Ação</th>
 
         </thead>
         <tbody>
             <tr scope="row" th:each="reservas : ${reservasList}">
-                <td th:text="${reservas?.id}"></td>
-                <td th:text="${reservas?.usuario?.user}"></td>
-                <td th:text="${reservas?.usuario?.email}">User Email</td>
-                <td th:text="${reservas?.usuario?.tipoUsuario}"></td>
-                <td th:text="${reservas?.campus}"></td>
-                <td th:text="${reservas?.quadra.nome}"></td>
-                <td th:text="${#temporals.format(reservas?.dataHoraInical, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${#temporals.format(reservas?.dataHoraFinal, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${reservas?.presenca}"></td>
-                <td th:text="${reservas?.punicao}"></td>
+                <td th:text="${reservas[0]}"></td>
+                <td th:text="${reservas[1]}"></td>
+                <td th:text="${reservas[2]}">User Email</td>
+                <td th:text="${reservas[3]}"></td>
+                <td th:text="${reservas[4]}"></td>
+                <td th:text="${reservas[5]}"></td>
+                <td th:text="${#temporals.format(reservas[6], 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(reservas[7], 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${reservas[8]}"></td>
+                <td th:text="${reservas[9]}"></td>
+                <td th:text="${reservas[10]}"></td>
+
                 <td>
-                    <a class="btn btn-primary" th:href="@{registrarpresenca/{id}(id=${reservas.id})}">
+                    <a class="btn btn-primary" th:href="@{registrarpresenca/{id}(id=${reservas[0]})}">
                         <i class="bi bi-pencil-square"></i> Presença
                     </a>
 
-                 <a class="btn btn-primary" th:href="@{editar/{id}(id=${reservas.id})}">
-                 <i class="bi bi-pencil-square"></i> Editar</a>
+                 <a class="btn btn-primary" th:href="@{editar/{id}(id=${reservas[0]})}">
+                 <i class="bi bi-pencil-square"></i> Remover Punição</a>
 
-                 <a class="btn btn-danger" th:href="@{remover/{id}(id=${reservas.id})}">
+                 <a class="btn btn-danger" th:href="@{remover/{id}(id=${reservas[0]})}">
                  <i class="bi bi-x-square"></i> Remover</a>
 
                 </td>

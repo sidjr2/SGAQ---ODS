@@ -21,19 +21,20 @@
         <table class="table table-bordered table-hover">
 
         <thead>
+            <th scope="col">ID</th>
             <th scope="col">Descrição</th>
             <th scope="col">Disponibilidade</th>
             <th scope="col">Quantidade</th>
         </thead>
         <tbody>
             <tr scope="row" th:each="equipamentos : ${equipamentosList}">
-
+                <td th:text="${equipamentos.id}"></td>
                 <td th:text="${equipamentos.nome}"></td>
                 <td th:text="${equipamentos.disponivel}"></td>
                 <td th:text="${equipamentos.quantidade}"></td>
                 <td>
                  <a class="btn btn-primary" th:href="@{editar/{id}(id=${equipamentos.id})}">
-                 <i class="bi bi-pencil-square"></i> Editar</a>
+                    <i class="bi bi-pencil-square"></i> Editar
 
                  <a class="btn btn-danger" th:href="@{remover/{id}(id=${equipamentos.id})}">
                  <i class="bi bi-x-square"></i> Remover</a>

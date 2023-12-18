@@ -70,7 +70,7 @@ public class ReservaController {
     }
 
     @PostMapping("InsertReservas")
-    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, @RequestParam("equipamento") Long equipamentoId, HttpSession session, BindingResult bindingResult) {
+    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, @RequestParam("equipamentoId") Long equipamentoId, HttpSession session, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         // Obter usuário logado da sessão
@@ -92,6 +92,7 @@ public class ReservaController {
             ReservaEquipamento reservaEquipamento = new ReservaEquipamento();
             reservaEquipamento.setReserva(reserva);
             reservaEquipamento.setEquipamento(equipamento);
+            reservaEquipamento.setDataHora( LocalDateTime.now());
             reservaEquipamentoRepository.save(reservaEquipamento);
             modelAndView.setViewName("redirect:/reserva/reservas-adicionados");
         }
@@ -114,11 +115,14 @@ public class ReservaController {
     @GetMapping("/registrarpresenca/{id}")
     @Transactional
     public String registrarPresenca(@PathVariable("id") Long id) {
-        // Recuperar a reserva com base no ID fornecido
-        reservaRepository.atualizarStatusPorId(id, Status.REALIZADO);
+            // Recuperar a reserva com base no índice fornecido
+            Reserva reserva = reservaRepository.findById(id).orElse(null);
 
+            // Atualizar o status da reserva para REALIZADO
+            reservaRepository.atualizarStatusPorId(reserva.getId(), Status.REALIZADO);
 
-        return "redirect:/reserva/reservas-adicionados";
+            // Redirecionar para a página de reservas adicionadas
+            return "redirect:/reserva/reservas-adicionados";
     }
 
     @GetMapping("/remover/{id}")
@@ -135,54 +139,41 @@ public class ReservaController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("Reserva/listReservas");
 
+
         List<Reserva> reservas = reservaRepository.findAll();
 
+        LocalDateTime agora = LocalDateTime.now();
+
         for (Reserva reserva : reservas) {
-            LocalDateTime agora = LocalDateTime.now();
 
-            // verifica se a hora e a mesma que a hora inicial e a hora final se for igual ou estiver dentro do intervalo
-            //punição fica inativa
-            //presença verifica se foi realizado registro de ReGISTRADO no banco dado ID se tiver marca REALIZADO se nao tiver marca NAOREALIZADO
-            if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
-                reserva.setPunicao(Status.ATIVO);
-                reserva.setPresenca(Status.NAOREALIZADO);
+                // Verifica se estamos dentro do intervalo da reserva
+                if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
+                    // Verifica se a presença foi realizada dentro do horário da reserva
+                    if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
+                        reserva.setPresenca(Status.REALIZADO);
+                        reserva.setPunicao(Status.INATIVO);
+                    } else {
+                        reserva.setPresenca(Status.NAOREALIZADO);
+                        reserva.setPunicao(Status.ATIVO);
 
-                // Adiciona punição ao banco de dados, se necessário
-                Punicao punicao = new Punicao();
-                punicao.setUsuario(reserva.getUsuario());
-                punicao.setReserva(reserva);
-                punicao.setDataHora(agora);
-                punicao.setPunicao(Status.REALIZADO);
-                punicaoRepository.save(punicao);
-
-            }
-            // basicamente estamos fora do intervalo deve se verificar se a hora de registro de presença e a mesma que o intervalo
-            //se foo punição fica INATIVA se nao for punicao fica ATIVO
-            //se presença foi realizado dentro do horario Pesença fica REALIZADO e se nao for fica NAOREALIZADO
-            else {
-                // Verifica se a presença foi registrada fora do horário da reserva
-                if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
-                    reserva.setPunicao(Status.ATIVO);
+                        // Adiciona punição ao banco de dados, se necessário
+                        Punicao punicao = new Punicao();
+                        punicao.setUsuario(reserva.getUsuario());
+                        punicao.setReserva(reserva);
+                        punicao.setDataHora(agora);
+                        punicao.setPunicao(Status.REALIZADO);
+                        punicaoRepository.save(punicao);
+                    }
+                } else {
                     reserva.setPresenca(Status.NAOREALIZADO);
-
-                    // Adiciona punição ao banco de dados, se necessário
-                    Punicao punicao = new Punicao();
-                    punicao.setUsuario(reserva.getUsuario());
-                    punicao.setReserva(reserva);
-                    punicao.setDataHora(agora);
-                    punicao.setPunicao(Status.REALIZADO);
-                    punicaoRepository.save(punicao);
-
-                    // Atualiza o status da presença para punido
-                    Presenca presenca = presencaRepository.findByUsuarioAndReserva(reserva.getUsuario(), reserva);
-                    presenca.setPresenca(Status.REALIZADO);
-                    presencaRepository.save(presenca);
+                    reserva.setPunicao(Status.ATIVO);
                 }
             }
-        }
+
 
         reservaRepository.saveAll(reservas);
-        modelAndView.addObject("reservasList", reservas);
+        List<Object[]> reservasequipamento = reservaRepository.findByEquipamento();
+        modelAndView.addObject("reservasList", reservasequipamento);
         return modelAndView;
     }
 
@@ -244,6 +235,7 @@ public class ReservaController {
         List<Reserva> listaReservas;
         if (nome == null || nome.trim().isEmpty()) {
             listaReservas = reservaRepository.findAll();
+
         } else {
             listaReservas = reservaRepository.findByNomeContainingIgnoreCase(nome);
         }
@@ -297,7 +289,8 @@ public class ReservaController {
             }
         }
         reservaRepository.saveAll(listaReservas);
-        modelAndView.addObject("ListaDeReservas", listaReservas);
+        List<Object[]> reservasequipamento = reservaRepository.findByEquipamento();
+        modelAndView.addObject("ListaDeReservas", reservasequipamento);
         modelAndView.setViewName("Reserva/pesquisa-resultado");
         return modelAndView;
     }

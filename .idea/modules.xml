@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SGAQ---ODS.iml" filepath="$PROJECT_DIR$/.idea/SGAQ---ODS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sgaq5.1/sgaq/sgaq.iml" filepath="$PROJECT_DIR$/sgaq5.1/sgaq/sgaq.iml" />
     </modules>
   </component>
 </project>
