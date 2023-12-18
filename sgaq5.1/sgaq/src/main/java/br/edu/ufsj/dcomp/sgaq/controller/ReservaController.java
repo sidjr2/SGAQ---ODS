@@ -134,28 +134,14 @@ public class ReservaController {
 
         if (reserva != null) {
             LocalDateTime agora = LocalDateTime.now();
-            System.out.println("registrarPresenca");
-            System.out.println(agora);
-            System.out.println(reserva.getDataHoraInical());
-            System.out.println(reserva.getDataHoraFinal());
-            System.out.println(agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal()));
 
-            // Verificar se estamos dentro do intervalo da reserva
-            if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
-                // Verificar se a presença foi realizada dentro do horário da reserva
-                System.out.println("estou aq");
-                reserva.setPresenca(Status.REALIZADO);
-                reserva.setPunicao(Status.INATIVO);
-            }
-            else {
-                reserva.setPresenca(Status.FORADOHORARIO);
-                reserva.setPunicao(Status.ATIVO);
-            }
+            Presenca presenca = new Presenca();
+            presenca.setReserva(reserva);
+            presenca.setPresenca(Status.REALIZADO);
+            presenca.setDataHora(agora);
+            presencaRepository.save(presenca);
 
-            reservaRepository.save(reserva);
         }
-
-        // Redirecionar para a página de reservas adicionadas
             return "redirect:/reserva/reservas-adicionados";
     }
     @GetMapping("/reservas-adicionados")
@@ -169,17 +155,14 @@ public class ReservaController {
         final Logger logger = LoggerFactory.getLogger(ReservaController.class);
         for (Reserva reserva : reservas) {
             if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
-                System.out.println("cheguei até aqui!!!!!!!!!!");
-                System.out.println(reserva.getPresenca() != null && reserva.getPresenca().equals(Status.NAOREALIZADO));
+                LocalDateTime horaPunicao = LocalDateTime.now();
 
-                if (reserva.getPresenca() != null && reserva.getPresenca().equals(Status.NAOREALIZADO)) {
-                    // Registra a punição se a presença não foi realizada
-                    reserva.setPunicao(Status.ATIVO);
-                } else {
-                    // Lógica a ser executada se a presença foi realizada
-                    reserva.setPresenca(Status.REALIZADO);
-                    reserva.setPunicao(Status.INATIVO);
-                }
+                Punicao punicao = new Punicao();
+                punicao.setReserva(reserva);
+                punicao.setPunicao(Status.FORADOHORARIO);
+                punicao.setDataHora(horaPunicao);
+                punicaoRepository.save(punicao);
+
             }
         }
 
