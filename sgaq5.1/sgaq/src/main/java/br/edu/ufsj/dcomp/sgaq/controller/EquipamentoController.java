@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import br.edu.ufsj.dcomp.sgaq.repository.ReservaEquipamentoRepository;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ public class EquipamentoController {
     @Autowired
     private EquipamentoRepository equipamentoRepository;
     private QuadraRepository quadraRepository;
+    @Autowired
+    private ReservaEquipamentoRepository reservaEquipamentoRepository;
 
 
     @GetMapping("/inserirEquipamentos")
@@ -136,5 +138,17 @@ public class EquipamentoController {
 
         return modelAndViewReserva;
     }
+    @GetMapping("/obterQuadrasPorCampus")
+    @ResponseBody
+    public ResponseEntity<List<Quadra>> obterQuadrasPorCampus(@RequestParam String campus) {
 
+        try {
+            Campus campusEnum = Campus.valueOf(campus); // Converte a String para o enum Campus
+            List<Quadra> quadraPorCampusList = quadraRepository.findByCampusName(campusEnum);
+            return new ResponseEntity<>(quadraPorCampusList, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // Lida com a exceção se a conversão do enum falhar
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

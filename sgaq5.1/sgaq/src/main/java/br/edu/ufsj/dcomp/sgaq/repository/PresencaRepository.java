@@ -2,6 +2,8 @@ package br.edu.ufsj.dcomp.sgaq.repository;
 
 import br.edu.ufsj.dcomp.sgaq.model.Presenca;
 import br.edu.ufsj.dcomp.sgaq.model.Quadra;
+import br.edu.ufsj.dcomp.sgaq.model.Reserva;
+import br.edu.ufsj.dcomp.sgaq.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,5 +22,5 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long>, CrudR
     public List<Presenca> findByStatusInativo();
 
 
-
+    Presenca findByUsuarioAndReserva(Usuario usuario, Reserva reserva);
 }

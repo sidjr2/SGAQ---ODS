@@ -22,6 +22,7 @@
         <table class="table table-bordered table-hover">
 
         <thead>
+            <th scope="col">Id</th>
             <th scope="col">Usuário</th>
             <th scope="col">Email</th>
             <th scope="col">Tipo</th>
@@ -36,6 +37,7 @@
         </thead>
         <tbody>
             <tr scope="row" th:each="reservas : ${reservasList}">
+                <td th:text="${reservas?.id}"></td>
                 <td th:text="${reservas?.usuario?.user}"></td>
                 <td th:text="${reservas?.usuario?.email}">User Email</td>
                 <td th:text="${reservas?.usuario?.tipoUsuario}"></td>
@@ -46,6 +48,10 @@
                 <td th:text="${reservas?.presenca}"></td>
                 <td th:text="${reservas?.punicao}"></td>
                 <td>
+                    <a class="btn btn-primary" th:href="@{registrarpresenca/{id}(id=${reservas.id})}">
+                        <i class="bi bi-pencil-square"></i> Presença
+                    </a>
+
                  <a class="btn btn-primary" th:href="@{editar/{id}(id=${reservas.id})}">
                  <i class="bi bi-pencil-square"></i> Editar</a>
 
@@ -60,5 +66,8 @@
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 </body>
 </html>

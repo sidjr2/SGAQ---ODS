@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/reserva") // Adicionando um mapeamento de nível de classe
@@ -95,61 +96,82 @@ public class ReservaController {
             // Lida com a exceção se a conversão do enum falhar
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }    
+    }
+    @GetMapping("/registrarpresenca/{id}")
+    @Transactional
+    public String registrarPresenca(@PathVariable("id") Long id) {
+        // Recuperar a reserva com base no ID fornecido
+        reservaRepository.atualizarStatusPorId(id, Status.REALIZADO);
+
+
+        return "redirect:/reserva/reservas-adicionados";
+    }
+
+    @GetMapping("/remover/{id}")
+    public String removerReserva(@PathVariable("id") Long id) {
+        reservaRepository.deleteById(id);
+        return "redirect:/reserva/reservas-adicionados";
+    }
+
+
 
     @GetMapping("/reservas-adicionados")
     @Transactional
     public ModelAndView listagemReservas() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("Reserva/listReservas");
+
         List<Reserva> reservas = reservaRepository.findAll();
-        for(Reserva reserva: reservas){
+
+        for (Reserva reserva : reservas) {
             LocalDateTime agora = LocalDateTime.now();
 
-            if (agora.isBefore(reserva.getDataHoraInical())){
+            // verifica se a hora e a mesma que a hora inicial e a hora final se for igual ou estiver dentro do intervalo
+            //punição fica inativa
+            //presença verifica se foi realizado registro de ReGISTRADO no banco dado ID se tiver marca REALIZADO se nao tiver marca NAOREALIZADO
+            if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
                 reserva.setPunicao(Status.ATIVO);
-                reserva.setPresenca(Status.INATIVO);
-                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                reserva.setPresenca(Status.NAOREALIZADO);
+
+                // Adiciona punição ao banco de dados, se necessário
                 Punicao punicao = new Punicao();
                 punicao.setUsuario(reserva.getUsuario());
                 punicao.setReserva(reserva);
-                punicao.setDataHora(LocalDateTime.now());
-                punicao.setPunicao(Status.ATIVO);
+                punicao.setDataHora(agora);
+                punicao.setPunicao(Status.REALIZADO);
                 punicaoRepository.save(punicao);
-
-                //presenças
-                Presenca presenca = new Presenca();
-                presenca.setUsuario(reserva.getUsuario());
-                presenca.setReserva(reserva);
-                presenca.setDataHora(LocalDateTime.now());
-                presenca.setPresenca(Status.INATIVO);
-                presencaRepository.save(presenca);
 
             }
-            else{
-                reserva.setPunicao(Status.INATIVO);
-                reserva.setPresenca(Status.ATIVO);
-                // Adicione as punições  correspondentes ao banco de dados, se necessário
-                Punicao punicao = new Punicao();
-                punicao.setUsuario(reserva.getUsuario());
-                punicao.setReserva(reserva);
-                punicao.setDataHora(LocalDateTime.now());
-                punicao.setPunicao(Status.INATIVO);
-                punicaoRepository.save(punicao);
+            // basicamente estamos fora do intervalo deve se verificar se a hora de registro de presença e a mesma que o intervalo
+            //se foo punição fica INATIVA se nao for punicao fica ATIVO
+            //se presença foi realizado dentro do horario Pesença fica REALIZADO e se nao for fica NAOREALIZADO
+            else {
+                // Verifica se a presença foi registrada fora do horário da reserva
+                if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
+                    reserva.setPunicao(Status.ATIVO);
+                    reserva.setPresenca(Status.NAOREALIZADO);
 
-                //presenças
-                Presenca presenca = new Presenca();
-                presenca.setUsuario(reserva.getUsuario());
-                presenca.setReserva(reserva);
-                presenca.setDataHora(LocalDateTime.now());
-                presenca.setPresenca(Status.ATIVO);
-                presencaRepository.save(presenca);
+                    // Adiciona punição ao banco de dados, se necessário
+                    Punicao punicao = new Punicao();
+                    punicao.setUsuario(reserva.getUsuario());
+                    punicao.setReserva(reserva);
+                    punicao.setDataHora(agora);
+                    punicao.setPunicao(Status.REALIZADO);
+                    punicaoRepository.save(punicao);
+
+                    // Atualiza o status da presença para punido
+                    Presenca presenca = presencaRepository.findByUsuarioAndReserva(reserva.getUsuario(), reserva);
+                    presenca.setPresenca(Status.REALIZADO);
+                    presencaRepository.save(presenca);
+                }
             }
         }
+
         reservaRepository.saveAll(reservas);
         modelAndView.addObject("reservasList", reservas);
         return modelAndView;
     }
+
 
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable("id") Long id) {
@@ -183,11 +205,7 @@ public class ReservaController {
         return modelAndView;
     }
 
-    @GetMapping("/remover/{id}")
-    public String removerReserva(@PathVariable("id") Long id) {
-        reservaRepository.deleteById(id);
-        return "redirect:/reserva/reservas-adicionados";
-    }
+
 
 //    @GetMapping("reservas-punicao-ativos")
 //    public ModelAndView listaReservasPunicaoAtivos() {
@@ -219,44 +237,49 @@ public class ReservaController {
         for (Reserva reserva : listaReservas) {
             LocalDateTime agora = LocalDateTime.now();
 
-            if (reserva.getDataHoraInical().isBefore(agora)){
+            // Verifica se o horário atual está fora do intervalo da reserva
+            if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
                 reserva.setPunicao(Status.ATIVO);
-                reserva.setPresenca(Status.INATIVO);
-                // Adicione as punições  correspondentes ao banco de dados, se necessário
+                reserva.setPresenca(Status.NAOREALIZADO);
+
+                // Adiciona punição ao banco de dados, se necessário
                 Punicao punicao = new Punicao();
                 punicao.setUsuario(reserva.getUsuario());
                 punicao.setReserva(reserva);
-                punicao.setDataHora(LocalDateTime.now());
-                punicao.setPunicao(Status.ATIVO);
+                punicao.setDataHora(agora);
+                punicao.setPunicao(Status.REALIZADO);
                 punicaoRepository.save(punicao);
 
-                //presenças
+                // Adiciona registro de presença ao banco de dados
                 Presenca presenca = new Presenca();
                 presenca.setUsuario(reserva.getUsuario());
                 presenca.setReserva(reserva);
-                presenca.setDataHora(LocalDateTime.now());
-                presenca.setPresenca(Status.INATIVO);
+                presenca.setDataHora(agora);
+                presenca.setPresenca(Status.NAOREALIZADO);
                 presencaRepository.save(presenca);
+            } else {
+                // Verifica se a presença foi registrada fora do horário da reserva
+                if (agora.isBefore(reserva.getDataHoraInical()) || agora.isAfter(reserva.getDataHoraFinal())) {
+                    reserva.setPunicao(Status.ATIVO);
+                    reserva.setPresenca(Status.NAOREALIZADO);
 
-            }
-            else{
-                reserva.setPunicao(Status.INATIVO);
-                reserva.setPresenca(Status.ATIVO);
-                // Adicione as punições  correspondentes ao banco de dados, se necessário
-                Punicao punicao = new Punicao();
-                punicao.setUsuario(reserva.getUsuario());
-                punicao.setReserva(reserva);
-                punicao.setDataHora(LocalDateTime.now());
-                punicao.setPunicao(Status.INATIVO);
-                punicaoRepository.save(punicao);
+                    // Adiciona punição ao banco de dados, se necessário
+                    Punicao punicao = new Punicao();
+                    punicao.setUsuario(reserva.getUsuario());
+                    punicao.setReserva(reserva);
+                    punicao.setDataHora(agora);
+                    punicao.setPunicao(Status.REALIZADO);
+                    punicaoRepository.save(punicao);
 
-                //presenças
-                Presenca presenca = new Presenca();
-                presenca.setUsuario(reserva.getUsuario());
-                presenca.setReserva(reserva);
-                presenca.setDataHora(LocalDateTime.now());
-                presenca.setPresenca(Status.ATIVO);
-                presencaRepository.save(presenca);
+                    // Atualiza o status da presença para punido
+                    Presenca presenca = presencaRepository.findByUsuarioAndReserva(reserva.getUsuario(), reserva);
+                    presenca.setPresenca(Status.REALIZADO);
+                    presencaRepository.save(presenca);
+                } else {
+                    // Caso contrário, a presença é considerada válida
+                    reserva.setPunicao(Status.INATIVO);
+                    reserva.setPresenca(Status.REALIZADO);
+                }
             }
         }
         reservaRepository.saveAll(listaReservas);

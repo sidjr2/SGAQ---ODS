@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 
 @Entity
 public class Reserva {
- private Campus campus;
+    private Campus campus;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

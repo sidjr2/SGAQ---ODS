@@ -2,6 +2,7 @@ package br.edu.ufsj.dcomp.sgaq.enums;
 
 public enum TipoUsuario {
 
+    ADMIN("Admin"),
     PROFESSOR("Professor"),
     ATLETICA("Atletica"),
     TECNICO("Tecnico"),

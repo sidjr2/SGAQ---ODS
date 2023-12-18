@@ -81,7 +81,7 @@
                 function atualizarQuadras() {
                     var campusSelecionado = $("#campusSelect").val();
                     // Realize uma requisição AJAX para obter as quadras com base no campus
-                    $.get("/equipamento/obterQuadrasPorCampus", { campus: campusSelecionado }, function (data) {
+                    $.get("/reserva/obterQuadrasPorCampus", { campus: campusSelecionado }, function (data) {
                         // Limpe as opções atuais do campo de quadra
                         $("#quadraSelect").empty();
                         // Adicione as novas opções ao campo de quadra
