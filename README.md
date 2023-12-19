@@ -66,16 +66,19 @@ Para instalar o sistema, siga os seguintes passos:
     git clone https://github.com/sidjr2/SGAQ---ODS
     ```
 
-3. Instale as dependências:
+3. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
 
     ```bash
-    npm install
+    spring.datasource.url = jdbc:mysql://localhost:3306/sgaq?
+    useTimezone=true&serverTimezone=UTC-3
+    spring.datasource.username = sgaq
+    spring.datasource.password = 12345
     ```
 
-4. Inicie o servidor:
+4. Rode o projeto:
 
     ```bash
-    npm run dev
+    SgaqApplication.java
     ```
 
 ## Uso
