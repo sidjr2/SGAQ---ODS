@@ -66,6 +66,11 @@ Para instalar o sistema, siga os seguintes passos:
     git clone https://github.com/sidjr2/SGAQ---ODS
     ```
 
+2. Execute o seguinte comando para instalar as depedências necessárias do projeto:
+    ```bash
+    mvnw install
+    ```
+
 3. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
 
     ```bash
