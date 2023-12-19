@@ -76,8 +76,7 @@ Para instalar o sistema, siga os seguintes passos:
 3. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
 
     ```bash
-    spring.datasource.url = jdbc:mysql://localhost:3306/sgaq?
-    useTimezone=true&serverTimezone=UTC-3
+    spring.datasource.url = jdbc:mysql://localhost:3306/sgaq?useTimezone=true&serverTimezone=UTC-3
     spring.datasource.username = sgaq
     spring.datasource.password = 12345
     ```
