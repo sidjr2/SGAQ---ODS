@@ -5,7 +5,8 @@
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-diagramas">Diagramas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-instalacao">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-instalacao">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
 
@@ -56,7 +57,7 @@ O Sistema de Gerenciamento de Alocação de Quadra (SGAQ) é uma sistema web des
 
 ##
 
-## Instalação
+## ⚙️ Instalação
 
 Para instalar o sistema, siga os seguintes passos:
 
@@ -66,12 +67,7 @@ Para instalar o sistema, siga os seguintes passos:
     git clone https://github.com/sidjr2/SGAQ---ODS
     ```
 
-2. Execute o seguinte comando para instalar as depedências necessárias do projeto:
-    ```bash
-    mvnw install
-    ```
-
-3. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
+2. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
 
     ```bash
     spring.datasource.url = jdbc:mysql://localhost:3306/sgaq?
@@ -80,13 +76,19 @@ Para instalar o sistema, siga os seguintes passos:
     spring.datasource.password = 12345
     ```
 
-4. Rode o projeto:
+3. Dentro do projeto execute o seguinte comando para instalar as depedências necessárias: [No Windows]
 
-    ```bash
-    SgaqApplication.java
+   ```bash
+    .\mvnw install
     ```
 
-## Uso
+5. Rode o projeto:
+
+    ```bash
+    .\mvnw spring-boot:run
+    ```
+
+## 🌐 Uso
 
 O sistema pode ser acessado no seguinte endereço:
 
@@ -94,7 +96,7 @@ O sistema pode ser acessado no seguinte endereço:
 
 Para fazer login, use um usuário e a senha já cadastrado.
 
-## Funcionalidades
+## ✔️ Funcionalidades
 
 O sistema oferece as seguintes funcionalidades:
 
@@ -106,6 +108,10 @@ O sistema oferece as seguintes funcionalidades:
 6. *Registro de presença:* Um usuário administrador poderá controlar a presença nas reservas.
 7. *Punição:* O sistema aplica automaticamente uma punição quando uma reserva não teve sua presença registrada.
 8. *Contatar suporte:* Direciona o usuário ao setor responsável.
+
+## 📄 Documentação
+
+Consulte o arquivo PDF [ODS-SGAQ](https://github.com/sidjr2/SGAQ---ODS/blob/master/Diagramas/SGAQ%20-%20Oficina%20e%20Desenvolvimento%20de%20Software.pdf) incluído neste repositório.
 
 
 ## :memo: Licença
