@@ -12,6 +12,10 @@
 </p>
 
 
+[![Davi Kreppel](https://avatars.githubusercontent.com/u/66695188?v=4)](https://github.com/DaviKpp) | [![Gustavo Detomi](https://avatars.githubusercontent.com/u/31541906?v=4)](https://github.com/Gudetomi) [![Leandro Souza](https://avatars.githubusercontent.com/u/48530574?v=4)](https://github.com/Lsouz44) | [![Matheus Nascimento](https://avatars.githubusercontent.com/u/23366884?v=4)](https://github.com/matheuznsilva) | [![Sidney Júnior](https://avatars.githubusercontent.com/u/51861308?v=4)](https://github.com/sidjr2) |
+|:-:|:-:|:-:|
+| [Davi Kreppel](https://github.com/DaviKpp) | [Gustavo Detomi](https://github.com/gudetomi) | [Leandro Souza](https://github.com/Lsouz44) | [Matheus Nascimento](https://github.com/matheuznsilva) | [Sidney Junior](https://github.com/sidjr2) |
+
 
 ## 🚀 Tecnologias
 
