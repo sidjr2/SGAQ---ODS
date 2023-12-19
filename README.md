@@ -67,7 +67,7 @@ Para instalar o sistema, siga os seguintes passos:
     git clone https://github.com/sidjr2/SGAQ---ODS
     ```
     
-2. Entre na pasta e limpa o proejo:
+2. Entre na pasta e limpa o projeto:
 
     ```bash
     cd .\SGAQ---ODS\
