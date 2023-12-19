@@ -3,12 +3,7 @@ package br.edu.ufsj.dcomp.sgaq.controller;
 import br.edu.ufsj.dcomp.sgaq.enums.Campus;
 import br.edu.ufsj.dcomp.sgaq.enums.Status;
 import br.edu.ufsj.dcomp.sgaq.model.*;
-import br.edu.ufsj.dcomp.sgaq.repository.PresencaRepository;
-import br.edu.ufsj.dcomp.sgaq.repository.ReservaRepository;
-import br.edu.ufsj.dcomp.sgaq.repository.PunicaoRepository;
-import br.edu.ufsj.dcomp.sgaq.repository.QuadraRepository;
-import br.edu.ufsj.dcomp.sgaq.repository.EquipamentoRepository;
-import br.edu.ufsj.dcomp.sgaq.repository.ReservaEquipamentoRepository;
+import br.edu.ufsj.dcomp.sgaq.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +39,10 @@ public class ReservaController {
     private QuadraRepository quadraRepository;
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+    @Autowired
     private PunicaoRepository punicaoRepository;
 
     @Autowired
@@ -68,17 +67,19 @@ public class ReservaController {
 
         // Adiciona os valores do enum Campus ao modelo
         modelAndView.addObject("campusValues", Campus.values());
+        List<Usuario> usuariosList = usuarioRepository.findAll();
+        modelAndView.addObject("usuarioValues", usuariosList);
         return modelAndView;
     }
 
     @PostMapping("InsertReservas")
-    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, @RequestParam("equipamentoId") Long equipamentoId, HttpSession session, BindingResult bindingResult) {
+    public ModelAndView inserirReserva(@Valid Reserva reserva,@RequestParam("quadra") Long quadraId, @RequestParam("usuario") Long usuarioId, @RequestParam("equipamentoId") Long equipamentoId, HttpSession session, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         LocalDateTime agora = LocalDateTime.now();
 
 
         // Obter usuário logado da sessão
-        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = usuarioRepository.findById(usuarioId).orElse(null);
         Quadra quadra = quadraRepository.findById(quadraId).orElse(null);
         Equipamento equipamento = equipamentoRepository.findById(equipamentoId).orElse(null);
         // Definir o usuário logado na reserva

@@ -36,6 +36,10 @@
                         <select id="quadraSelect" class="form-control" th:field="*{quadra}">
                             <option th:each="quadra : ${quadraList}" th:value="${quadra.id}" th:text="${quadra.nome}"></option>
                         </select>
+                        <label>Selecione a Usuario: </label>
+                        <select id="usuarioSelect" class="form-control" th:field="*{usuario}">
+                            <option th:each="usuario : ${usuarioValues}" th:value="${usuario.id}" th:text="${#strings.capitalize(usuario.user)}"></option>
+                        </select>
                         <div class="form-group">
                             <label for=""><b>Data e hora de inicio:</b></label>
                             <div class="row">
