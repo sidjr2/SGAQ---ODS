@@ -66,8 +66,17 @@ Para instalar o sistema, siga os seguintes passos:
     ```bash
     git clone https://github.com/sidjr2/SGAQ---ODS
     ```
+    
+2. Entre na pasta e limpa o proejo:
 
-2. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
+    ```bash
+    cd .\SGAQ---ODS\
+    cd .\sgaq5.9\
+    cd .\sgaq\
+    .\mvnw clean
+    ```
+
+3. Alterar as linhas do arquivo "application.properties", para puxar o seu banco de dados:
 
     ```bash
     spring.datasource.url = jdbc:mysql://localhost:3306/sgaq?
@@ -76,7 +85,7 @@ Para instalar o sistema, siga os seguintes passos:
     spring.datasource.password = 12345
     ```
 
-3. Dentro do projeto execute o seguinte comando para instalar as depedências necessárias: [No Windows]
+4. Dentro do projeto execute o seguinte comando para instalar as depedências necessárias: [No Windows]
 
    ```bash
     .\mvnw install
