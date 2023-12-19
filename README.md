@@ -116,7 +116,7 @@ Consulte o arquivo PDF [ODS-SGAQ](https://github.com/sidjr2/SGAQ---ODS/blob/mast
 
 ## :memo: Licença
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) para mais detalhes.
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE]([./LICENSE.md](https://github.com/sidjr2/SGAQ---ODS/blob/master/LICENCE)) para mais detalhes.
 
 ---
 
