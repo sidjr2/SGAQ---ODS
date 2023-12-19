@@ -56,8 +56,6 @@ O Sistema de Gerenciamento de Alocação de Quadra (SGAQ) é uma sistema web des
 
 ![Diagrama do Banco de Dados](https://github.com/sidjr2/SGAQ---ODS/blob/master/Diagramas/3%20-%20Diagrama%20do%20banco%20de%20dados.png)
 
-##
-
 
 ## ⚙️ Instalação
 
