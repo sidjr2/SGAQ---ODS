@@ -49,14 +49,11 @@
                 <td th:text="${reservas[8]}"></td>
                 <td th:text="${reservas[9]}"></td>
                 <td th:text="${reservas[10]}"></td>
-
                 <td>
-                    <a class="btn btn-primary" th:href="@{registrarpresenca/{id}(id=${reservas[0]})}">
-                        <i class="bi bi-pencil-square"></i> Presença
-                    </a>
-
-                 <a class="btn btn-primary" th:href="@{editar/{id}(id=${reservas[0]})}">
-                 <i class="bi bi-pencil-square"></i> Remover Punição</a>
+                <a th:if="${reservas[8] == null and reservas[9] == null}" class="btn btn-primary" th:href="@{registrarpresenca/{id}(id=${reservas[0]})}">
+                    <i class="bi bi-pencil-square"></i> Presença
+                </a>
+                    <a th:if="${reservas[9] != null }" class="btn btn-primary" href="https://ufsj.edu.br/coefi/fale_conosco.php"> Contatar Suporte</a>
 
                  <a class="btn btn-danger" th:href="@{remover/{id}(id=${reservas[0]})}">
                  <i class="bi bi-x-square"></i> Remover</a>

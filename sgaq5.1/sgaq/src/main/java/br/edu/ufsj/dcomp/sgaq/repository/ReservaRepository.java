@@ -38,10 +38,12 @@ public interface ReservaRepository extends JpaRepository<Reserva,Long>, CrudRepo
 
     public Optional<Reserva> findById(Long id);
 
+
+
     public List<Reserva> findByNomeContainingIgnoreCase(String nome);
 
 
-    @Query("SELECT r.id as reserva_id, r.usuario.user, r.usuario.email, r.usuario.tipoUsuario, r.campus, r.quadra.nome, r.dataHoraInical, r.dataHoraFinal, r.presenca, r.punicao, e.nome as equipamento_nome FROM Reserva r INNER JOIN ReservaEquipamento re ON r.id = re.reserva.id INNER JOIN Equipamento e ON re.equipamento.id = e.id")
+    @Query("SELECT r.id as reserva_id, r.usuario.user, r.usuario.email, r.usuario.tipoUsuario, r.campus, r.quadra.nome,r.dataHoraInical, r.dataHoraFinal, p.presenca, pu.punicao, e.nome as equipamento_nome FROM Reserva r INNER JOIN ReservaEquipamento re ON r.id = re.reserva.id INNER JOIN Equipamento e ON re.equipamento.id = e.id LEFT JOIN  Presenca p ON r.id = p.reserva.id LEFT JOIN Punicao pu ON r.id = pu.reserva.id GROUP BY r.id , r.usuario.user, r.usuario.email, r.usuario.tipoUsuario, r.campus, r.quadra.nome,r.dataHoraInical, r.dataHoraFinal, p.presenca, pu.punicao, e.nome")
     public List<Object[]> findByEquipamento();
 
 

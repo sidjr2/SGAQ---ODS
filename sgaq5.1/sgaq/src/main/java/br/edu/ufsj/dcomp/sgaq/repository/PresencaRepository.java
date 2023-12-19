@@ -8,6 +8,7 @@ import br.edu.ufsj.dcomp.sgaq.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,9 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long>, CrudR
     public List<Presenca> findByStatusInativo();
 
     List<Presenca> findByPresenca(Status status);
+
+    @Query("SELECT a FROM Presenca a WHERE a.reserva.id = :id ")
+    public <id> List<Presenca> findByReservaId(@Param("id") Long id);
 
     Presenca findByUsuarioAndReserva(Usuario usuario, Reserva reserva);
 

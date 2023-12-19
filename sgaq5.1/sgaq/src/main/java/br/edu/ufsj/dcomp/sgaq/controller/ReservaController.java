@@ -154,14 +154,16 @@ public class ReservaController {
         LocalDateTime agora = LocalDateTime.now();
         final Logger logger = LoggerFactory.getLogger(ReservaController.class);
         for (Reserva reserva : reservas) {
-            if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
+            if (agora.isAfter(reserva.getDataHoraFinal())) {
                 LocalDateTime horaPunicao = LocalDateTime.now();
-
-                Punicao punicao = new Punicao();
-                punicao.setReserva(reserva);
-                punicao.setPunicao(Status.FORADOHORARIO);
-                punicao.setDataHora(horaPunicao);
-                punicaoRepository.save(punicao);
+                List<Presenca> verifica = presencaRepository.findByReservaId(reserva.getId());
+                if(verifica.isEmpty()){
+                    Punicao punicao = new Punicao();
+                    punicao.setReserva(reserva);
+                    punicao.setPunicao(Status.FORADOHORARIO);
+                    punicao.setDataHora(horaPunicao);
+                    punicaoRepository.save(punicao);
+                }
 
             }
         }
@@ -241,14 +243,16 @@ public class ReservaController {
         // Percorre as reservas para atualizar os status
         for (Reserva reserva : listaReservas) {
 
-            if (agora.isAfter(reserva.getDataHoraInical()) && agora.isBefore(reserva.getDataHoraFinal())) {
+            if (agora.isAfter(reserva.getDataHoraFinal())) {
                 LocalDateTime horaPunicao = LocalDateTime.now();
-
-                Punicao punicao = new Punicao();
-                punicao.setReserva(reserva);
-                punicao.setPunicao(Status.FORADOHORARIO);
-                punicao.setDataHora(horaPunicao);
-                punicaoRepository.save(punicao);
+                List<Presenca> verifica = presencaRepository.findByReservaId(reserva.getId());
+                if(verifica.isEmpty()){
+                    Punicao punicao = new Punicao();
+                    punicao.setReserva(reserva);
+                    punicao.setPunicao(Status.FORADOHORARIO);
+                    punicao.setDataHora(horaPunicao);
+                    punicaoRepository.save(punicao);
+                }
             }
 
         }
