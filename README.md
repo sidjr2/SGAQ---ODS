@@ -5,8 +5,8 @@
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-diagramas">Diagramas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-instalação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#funcionalidade-funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#documentação">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentação">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
 
@@ -104,7 +104,7 @@ O sistema pode ser acessado no seguinte endereço:
 Para fazer login, use um usuário e a senha já cadastrado.
 
 
-## :funcionalidade: ✔️ Funcionalidades
+## ✔️ Funcionalidades
 
 O sistema oferece as seguintes funcionalidades:
 
@@ -118,7 +118,7 @@ O sistema oferece as seguintes funcionalidades:
 8. *Contatar suporte:* Direciona o usuário ao setor responsável.
 
 
-## :Documentacao: 📄 Documentação
+## 📄 Documentação
 
 Consulte o arquivo PDF [ODS-SGAQ](https://github.com/sidjr2/SGAQ---ODS/blob/master/Diagramas/SGAQ%20-%20Oficina%20e%20Desenvolvimento%20de%20Software.pdf) incluído neste repositório.
 
