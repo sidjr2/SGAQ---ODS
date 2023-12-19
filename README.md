@@ -1,12 +1,12 @@
 # SISTEMA DE GERENCIAMENTO DE ALOCAÇÃO DE QUADRA - SGAQ
 
 <p align="center">
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-diagramas">Diagramas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-instalacao">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>
+  <a href="#-projeto">Projeto</a>
+  <a href="#-diagramas">Diagramas</a>
+  <a href="#-instalacao">Instalação</a>
+  <a href="#funcionalidades">Funcionalidades</a>
+  <a href="#documentacao">Documentação</a>
   <a href="#memo-licença">Licença</a>
 </p>
 
