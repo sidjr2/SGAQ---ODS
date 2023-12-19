@@ -62,21 +62,21 @@ Para instalar o sistema, siga os seguintes passos:
 
 1. Clone o repositório do GitHub:
 
-    bash
-      git clone https://github.com/sidjr2/SGAQ---ODS
-    
+    '''bash
+     git clone https://github.com/sidjr2/SGAQ---ODS
+    '''
 
 2. Instale as dependências:
 
-    bash
+    '''bash
       npm install
-    
+    '''
 
 3. Inicie o servidor:
 
-    bash
+    '''bash
       npm run dev
-    
+    '''
 
 ## Uso
 
